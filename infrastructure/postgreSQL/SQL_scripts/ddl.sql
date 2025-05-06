@@ -6,7 +6,7 @@ CREATE SCHEMA public;
 
 CREATE TABLE IF NOT EXISTS pais(
     id SERIAL PRIMARY KEY,
-    nombre VARCHAR(100)
+    nombre VARCHAR(100) UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS region(
@@ -160,7 +160,7 @@ CREATE TABLE IF NOT EXISTS facturacion(
     numero_final INTEGER,
     factura_actual INTEGER,
     PRIMARY KEY(id)
-);
+); -- A esta tabla no se le crea constructor. sólo debe tener una instancia.
 
 CREATE TABLE IF NOT EXISTS venta(
     id_factura INTEGER,
