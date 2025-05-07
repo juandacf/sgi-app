@@ -7,10 +7,10 @@ namespace sgi_app.domain.entities
 {
     public class MovimientoCaja
     {
-        public string? Fecha {get;set;}
+        public string Fecha {get;set;}
         public int IdTipoMovimientoCaja {get;set;}
         public double Valor {get;set;}
-        public string? Concepto {get;set;}
+        public string Concepto {get;set;}
 
         MovimientoCaja(string Fecha, int IdTipoMovimientoCaja, double Valor, string Concepto){
             this.Fecha = Fecha;

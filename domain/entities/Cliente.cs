@@ -7,8 +7,8 @@ namespace sgi_app.domain.entities
 {
     public class Cliente: Tercero
     {
-        public string? FechaNacimiento {get;set;}
-        public string? FechaUltimaCompra {get;set;}
+        public string FechaNacimiento {get;set;}
+        public string FechaUltimaCompra {get;set;}
 //El id personal de cada tercero será establecido a través del serial de PSQL
         Cliente(string Id, string Nombre, string Apellido, string Email, int Id_Tipo_Documento, int Id_Tipo_Tercero, string FechaNacimiento, string FechaUltimaCompra):base(Id, Nombre, Apellido, Email, Id_Tipo_Documento, Id_Tipo_Tercero){
                 this.FechaNacimiento = FechaNacimiento;

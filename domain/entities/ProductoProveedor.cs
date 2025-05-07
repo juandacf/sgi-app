@@ -7,7 +7,7 @@ namespace sgi_app.domain.entities
 {
     public class ProductoProveedor
     {
-        public string? Id_Proveedor {get;set;}
+        public string Id_Proveedor {get;set;}
         public string Id_Producto {get;set;}
 
         ProductoProveedor(string Id_Producto, string Id_Proveedor){

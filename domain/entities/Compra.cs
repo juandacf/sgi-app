@@ -9,8 +9,8 @@ namespace sgi_app.domain.entities
     {
         // el id se asignará en postgresql
 
-        public string? IdTerceroProveedor {get;set;}
-        public string? IDTerceroEmpleado {get;set;}
+        public string IdTerceroProveedor {get;set;}
+        public string IDTerceroEmpleado {get;set;}
 
         public Compra(string IdTerceroProveedor, string IDTerceroEmpleado){
             this.IdTerceroProveedor = IdTerceroProveedor;

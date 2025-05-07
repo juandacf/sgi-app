@@ -9,7 +9,7 @@ namespace sgi_app.domain.entities
     public class PlanProducto
     {
         public int IdPlan {get;set;}
-        public string? IdProducto {get;set;}
+        public string IdProducto {get;set;}
 
         PlanProducto(int IdPlan, string IdProducto){
             this.IdPlan = IdPlan;

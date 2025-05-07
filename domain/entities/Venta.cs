@@ -9,9 +9,9 @@ namespace sgi_app.domain.entities
     {
         // la fecha de la venta se ingresará con el NOW() de postgresql y el id con el serial
 
-        public string? IDTerceroEmpleado {get;set;}
+        public string IDTerceroEmpleado {get;set;}
 
-        public string? IdTerceroCliente {get;set;}
+        public string IdTerceroCliente {get;set;}
 
         Venta(string IDTerceroEmpleado, string IdTerceroCliente){
             this.IDTerceroEmpleado = IDTerceroEmpleado;

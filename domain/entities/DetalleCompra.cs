@@ -7,8 +7,8 @@ namespace sgi_app.domain.entities
 {
     public class DetalleCompra
     {
-        public string? Date {get;set;}
-        public string? IdProducto{get;set;}
+        public string Date {get;set;}
+        public string IdProducto{get;set;}
         public int IdCompra {get;set;}
         public int Cantidad {get;set;}
         public int valor {get;set;}

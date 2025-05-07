@@ -7,7 +7,7 @@ namespace sgi_app.domain.entities
 {
     public class Empresa
     {
-        public string? Nombre {get;set;}
+        public string Nombre {get;set;}
         public int Id_ciudad {get;set;}
         public string Fecha_Registro{get;set;}
         Empresa(string Nombre, int Id_ciudad, string Fecha_Registro ){

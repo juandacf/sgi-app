@@ -7,10 +7,10 @@ namespace sgi_app.domain.entities
 {
     public class Tercero
     {
-        public string? Id {get;set;}
-        public string? Nombre {get;set;}
-        public string? Apellido {get;set;}
-        public string? Email {get;set;}
+        public string Id {get;set;}
+        public string Nombre {get;set;}
+        public string Apellido {get;set;}
+        public string Email {get;set;}
         public int Id_Tipo_Documento {get;set;}
         public  int Id_Tipo_Tercero {get;set;}
 

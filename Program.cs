@@ -12,9 +12,9 @@ internal class Program
         var ServicioPais = new PaisService(factory.CreateCountryRepository());
         var ServicioArl = new ArlService(factory.CreateArlRepository());
 
-        Arl arl = new Arl("Arl3", 1);
+        Arl arl = new Arl("Arl3333", 1);
 
-        ServicioArl.EliminarArl(1);
+        ServicioArl.EditarArl(arl);
         
 
 

@@ -9,7 +9,7 @@ namespace sgi_app.domain.entities
     public class DetalleVenta
     {
         public int IdFacturacion {get;set;}
-        public string? IdProducto {get;set;}
+        public string IdProducto {get;set;}
         public int Cantidad {get;set;}
         public int Valor {get;set;}
 

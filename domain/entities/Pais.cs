@@ -8,7 +8,7 @@ namespace sgi_app.domain.entities
 {
     public class Pais
     {
-        public string? Nombre { get; set; } 
+        public string Nombre { get; set; } 
         public int Id {get;set;} 
 
         public Pais(String Nombre, int Id){

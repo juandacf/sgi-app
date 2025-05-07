@@ -5,9 +5,9 @@ namespace sgi_app.infrastructure.postgreSQL
 {
 public class ConexionPostgresSingleton
 {
-private static ConexionPostgresSingleton? _instancia;
-private readonly string? _connectionString;
-private NpgsqlConnection? _conexion;
+private static ConexionPostgresSingleton _instancia;
+private readonly string _connectionString;
+private NpgsqlConnection _conexion;
 private ConexionPostgresSingleton(string connectionString)
 {
 _connectionString = connectionString;

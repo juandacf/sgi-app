@@ -8,14 +8,14 @@ namespace sgi_app.domain.entities
 {
     public class Producto
     {
-        public string? Id {get;set;}
-        public string? Nombre {get;set;}
+        public string Id {get;set;}
+        public string Nombre {get;set;}
         public int Stock {get;set;}
         public int StockMinimo {get;set;}
         public int StockMaxinmo {get;set;}
         // public string? CreatedAt {get;set;}
         // public string? UpdatedAt {get;set;}
-        public string? BarCode {get;set;}
+        public string BarCode {get;set;}
 
         //El CreatedAT/UpdatedAt se hará con el método nativo de postgres NOW();
 
