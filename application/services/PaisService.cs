@@ -18,5 +18,20 @@ namespace sgi_app.application.services
         public void CrearPais(Pais pais){
             _repo.Crear(pais);
         }
+
+        public void ObtenerPais(){
+            var lista = _repo.ObtenerTodos();
+            foreach(var p in lista){
+                Console.WriteLine($"id: {p.Id} // Nombre:{p.Nombre}");
+            }
+        }
+
+        public void EliminarPais(int idPais){
+            _repo.Eliminar(idPais);
+        }
+
+        public void EditarPais(Pais pais){
+            _repo.Actualizar(pais);
+        }
     }
 }
