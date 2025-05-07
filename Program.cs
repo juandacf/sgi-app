@@ -12,10 +12,9 @@ internal class Program
         var ServicioPais = new PaisService(factory.CreateCountryRepository());
         var ServicioArl = new ArlService(factory.CreateArlRepository());
         var ServicioRegion = new RegionService(factory.CreateRegionRepository());
+        var ServicioCiudad = new CiudadService(factory.CreateCiudadRepository());
 
-        Region region = new Region(1, "Amazonas", 2);
-
-        ServicioRegion.EliminarRegion(1);
+        
         
 
 

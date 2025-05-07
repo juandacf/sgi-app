@@ -27,5 +27,9 @@ namespace sgi_app.infrastructure.postgreSQL
         public IregionRepository CreateRegionRepository(){
             return new ImpRegionRepository(_connectionString);
         }
+
+        public ICiudadRepository CreateCiudadRepository(){
+            return new ImpCiudadRepository(_connectionString);
+        }
     }
 }
