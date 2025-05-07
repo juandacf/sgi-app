@@ -28,10 +28,7 @@ namespace sgi_app.infrastructure.repositories
             cmd.ExecuteNonQuery();
         }
 
-        public ICountryRepository CrearCountryRepository()
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public void Crear(Pais pais)
         {
