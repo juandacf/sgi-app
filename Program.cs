@@ -13,9 +13,9 @@ internal class Program
         var ServicioArl = new ArlService(factory.CreateArlRepository());
         var ServicioRegion = new RegionService(factory.CreateRegionRepository());
         var ServicioCiudad = new CiudadService(factory.CreateCiudadRepository());
+        var ServicioEmpresa = new EmpresaService(factory.CreateEmpresaRepository());
 
-        
-        
+     
 
 
         

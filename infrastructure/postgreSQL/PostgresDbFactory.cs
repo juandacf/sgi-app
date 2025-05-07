@@ -31,5 +31,9 @@ namespace sgi_app.infrastructure.postgreSQL
         public ICiudadRepository CreateCiudadRepository(){
             return new ImpCiudadRepository(_connectionString);
         }
+
+        public IEmpresaRepository CreateEmpresaRepository() {
+            return new ImpEmpresaRepository(_connectionString);
+        }
     }
 }
