@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Npgsql;
@@ -17,15 +18,17 @@ namespace sgi_app.infrastructure.repositories
             _conexion = ConexionPostgresSingleton.Instancia(connectionString);
          }
 
-        public void Actualizar(Pais entity)
+        public void Actualizar(Pais pais)
         {
-            throw new NotImplementedException();
+            var connection = _conexion.ObtenerConexion();
+            string query = "update pais set nombre=@nombre where id=@id";
+            using var cmd = new NpgsqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("nombre", pais.Nombre);
+            cmd.Parameters.AddWithValue("id", pais.Id);
+            cmd.ExecuteNonQuery();
         }
 
-        public ICountryRepository CrearCountryRepository()
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public void Crear(Pais pais)
         {
@@ -36,16 +39,29 @@ namespace sgi_app.infrastructure.repositories
             cmd.ExecuteNonQuery();
         }
 
-        public void Eliminar(int var)
+        public void Eliminar(int idPais)
         {
-            throw new NotImplementedException();
+             var connection = _conexion.ObtenerConexion();
+             string query = "Delete from pais where id=@idPais";
+             using var cmd = new NpgsqlCommand(query, connection);
+             cmd.Parameters.AddWithValue("@idPais", idPais);
+             cmd.ExecuteNonQuery();
         }
 
         public List<Pais> ObtenerTodos()
         {
-            throw new NotImplementedException();
+            var clientes = new List<Pais>();
+            var connection = _conexion.ObtenerConexion();
+            string query = "SELECT id,nombre FROM pais";
+            using var cmd = new NpgsqlCommand(query, connection);
+            using var reader = cmd.ExecuteReader();
+
+            while(reader.Read()) {
+                clientes.Add(new Pais(reader.GetString("nombre"), reader.GetInt32("id")));
+            }
+            return clientes;
         }
 
-       
+
     }
 }

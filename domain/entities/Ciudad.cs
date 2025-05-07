@@ -6,14 +6,11 @@ using Npgsql.Replication;
 
 namespace sgi_app.domain.entities
 {
-    public class Ciudad
+    public class Ciudad(string Nombre, int Id_Pais)
     {
-        public string Nombre {get;set;}
-        public int Id_Pais {get;set;}
+        public string Nombre {get;set;} = Nombre;
+        public int Id_Pais {get;set;} = Id_Pais;
 
-        Ciudad(string Nombre, int Id_Pais){
-            this.Nombre = Nombre;
-            this.Id_Pais = Id_Pais;
-        }
+        
     }
 }

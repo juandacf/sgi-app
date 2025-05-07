@@ -11,6 +11,11 @@ internal class Program
         IDbFactory factory = new PostgresDbFactory(DbParameters.Parameters);
         var ServicioPais = new PaisService(factory.CreateCountryRepository());
 
+        Pais pais = new Pais("Venezuela", 2);
+
+        ServicioPais.CrearPais(pais);
+
+
         
     }
 }

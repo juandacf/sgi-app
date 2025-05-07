@@ -19,5 +19,9 @@ namespace sgi_app.infrastructure.postgreSQL
         {
             return new ImpCountryRepository(_connectionString);
         }
+
+        public IArlRepository CreateArlRepository(){
+            return new ImpArlRepository(_connectionString);
+        }
     }
 }
