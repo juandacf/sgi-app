@@ -9,5 +9,6 @@ namespace sgi_app.domain.factory //Este archivo nos permite utilizar las clases
     public interface IDbFactory 
     {
       ICountryRepository  CreateCountryRepository();
+      IArlRepository CreateArlRepository();
     }
 }

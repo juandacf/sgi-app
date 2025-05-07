@@ -6,9 +6,8 @@ using sgi_app.domain.entities;
 
 namespace sgi_app.domain.ports
 {
-    public interface ICountryRepository : IGenericRepository<Pais>
+    public interface IArlRepository: IGenericRepository<Arl>
     {
-       
         
     }
 }

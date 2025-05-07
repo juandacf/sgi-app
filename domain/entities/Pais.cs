@@ -6,9 +6,14 @@ using Org.BouncyCastle.Asn1.Misc;
 
 namespace sgi_app.domain.entities
 {
-    public class Pais(string Nombre, int Id)
+    public class Pais
     {
-        public string? Nombre { get; set; } = Nombre;
-        public int Id {get;set;} = Id;
+        public string? Nombre { get; set; } 
+        public int Id {get;set;} 
+
+        public Pais(String Nombre, int Id){
+            this.Nombre = Nombre;
+            this.Id = Id;
+        }
     }
 }
