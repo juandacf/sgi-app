@@ -26,5 +26,10 @@ _conexion.Open();
 
 return _conexion;
 }
-}
+
+        internal object ObetenerConexion()
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

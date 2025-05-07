@@ -7,10 +7,12 @@ namespace sgi_app.domain.entities
 {
     public class Arl
     {
-        public string? Nombre {get;set;}
+        public int Id {get;set;}
+        public string Nombre {get;set;}
 
-        Arl(string Nombre){
+        public Arl(string Nombre, int Id){
             this.Nombre = Nombre;
+            this.Id = Id;
         }
     }
 }
