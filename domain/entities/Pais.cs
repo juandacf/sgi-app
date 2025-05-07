@@ -5,13 +5,8 @@ using System.Threading.Tasks;
 
 namespace sgi_app.domain.entities
 {
-    public class Pais
+    public class Pais(string Nombre)
     {
-        public string? Nombre {get;set;}
-
-        Pais(string Nombre){
-            this.Nombre = Nombre;
-        }
-        
+        public string? Nombre { get; set; } = Nombre;
     }
 }
