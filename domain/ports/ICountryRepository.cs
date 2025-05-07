@@ -8,6 +8,7 @@ namespace sgi_app.domain.ports
 {
     public interface ICountryRepository : IGenericRepository<Pais>
     {
-        ICountryRepository CrearCouentryRepository();
+        void Crear(Pais pais);
+        ICountryRepository CrearCountryRepository();
     }
 }
