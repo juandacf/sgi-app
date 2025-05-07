@@ -13,10 +13,11 @@ namespace sgi_app.infrastructure.repositories
     public class ImpArlRepository : IGenericRepository<Arl>, IArlRepository
     {
         private readonly ConexionPostgresSingleton _conexion;
-public ImpArlRepository(string connectionString){
+        public ImpArlRepository(string connectionString)
+        {
             _conexion = ConexionPostgresSingleton.Instancia(connectionString);
-}       
-         public void Actualizar(Arl entity)
+        }
+        public void Actualizar(Arl entity)
         {
             var connection = _conexion.ObtenerConexion();
             string query = "update arl set nombre=@nombre where id=@id";
@@ -31,7 +32,7 @@ public ImpArlRepository(string connectionString){
             var connection = _conexion.ObtenerConexion();
             string query = "INSERT INTO arl(nombre) VALUES(@nombre)";
             using var cmd = new NpgsqlCommand(query, connection);
-            cmd.Parameters.AddWithValue("@nombre", entity.Nombre );
+            cmd.Parameters.AddWithValue("@nombre", entity.Nombre);
             cmd.ExecuteNonQuery();
         }
 
@@ -40,7 +41,7 @@ public ImpArlRepository(string connectionString){
             var connection = _conexion.ObtenerConexion();
             string query = "Delete from arl where id=@idArl";
             using var cmd = new NpgsqlCommand(query, connection);
-            cmd.Parameters.AddWithValue("@idArl", idArl );
+            cmd.Parameters.AddWithValue("@idArl", idArl);
             cmd.ExecuteNonQuery();
         }
 
@@ -51,7 +52,8 @@ public ImpArlRepository(string connectionString){
             string query = "SELECT id,nombre FROM arl";
             using var cmd = new NpgsqlCommand(query, connection);
             using var reader = cmd.ExecuteReader();
-            while (reader.Read()) {
+            while (reader.Read())
+            {
                 ArlList.Add(new Arl(reader.GetString("nombre"), reader.GetInt32("id")));
             }
 

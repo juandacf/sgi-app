@@ -10,5 +10,6 @@ namespace sgi_app.domain.factory //Este archivo nos permite utilizar las clases
     {
       ICountryRepository  CreateCountryRepository();
       IArlRepository CreateArlRepository();
+      IregionRepository CreateRegionRepository();
     }
 }
