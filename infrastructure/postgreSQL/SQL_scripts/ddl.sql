@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS tercero (
 );
 
 CREATE TABLE IF NOT EXISTS empleado(
-    id VARCHAR(20) PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     fecha_ingreso DATE,
     salario_base DECIMAL(9,2),
     id_tercero VARCHAR(20),
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS empleado(
 );
 
 CREATE TABLE IF NOT EXISTS proveedor(
-    id VARCHAR(20) PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     descuento DECIMAL(5,2) CHECK(descuento < 100),
     dia_pago INTEGER,
     id_tercero VARCHAR(20),
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS proveedor(
 );
 
 CREATE TABLE IF NOT EXISTS cliente(
-    id VARCHAR(20) PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     id_tercero VARCHAR(20),
     fecha_nacimiento DATE,
     fecha_ultima_compra DATE,
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS producto(
 
 CREATE TABLE IF NOT EXISTS producto_proveedor(
     id SERIAL PRIMARY KEY,
-    id_proveedor VARCHAR(20),
+    id_proveedor INT,
     id_producto VARCHAR(20),
     FOREIGN KEY(id_proveedor) REFERENCES proveedor(id),
     FOREIGN KEY(id_producto) REFERENCES producto(id)
@@ -165,8 +165,8 @@ CREATE TABLE IF NOT EXISTS facturacion(
 CREATE TABLE IF NOT EXISTS venta(
     id_factura INTEGER,
     fecha DATE,
-    id_tercero_empleado VARCHAR(20),
-    id_tercero_cliente VARCHAR(20),
+    id_tercero_empleado INT,
+    id_tercero_cliente INT,
     PRIMARY key(id_factura),
     FOREIGN KEY(id_tercero_empleado) REFERENCES empleado(id),
     FOREIGN KEY(id_tercero_cliente) REFERENCES cliente(id)
@@ -174,8 +174,8 @@ CREATE TABLE IF NOT EXISTS venta(
 
 CREATE TABLE IF NOT EXISTS compra(
     id SERIAL,
-    id_tercero_proveedor VARCHAR(20),
-    id_tercero_empleado VARCHAR (20),
+    id_tercero_proveedor INT,
+    id_tercero_empleado INT,
     fecha DATE,
     documento_compra VARCHAR,
     PRIMARY KEY(id),

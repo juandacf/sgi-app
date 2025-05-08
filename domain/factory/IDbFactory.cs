@@ -16,5 +16,7 @@ namespace sgi_app.domain.factory //Este archivo nos permite utilizar las clases
       IEmpresaRepository CreateEmpresaRepository();
 
       ITerceroRepository CreateTerceroRepository();
+
+      IEmpleadoRepository CreateEmpleadoRepository();
     }
 }
