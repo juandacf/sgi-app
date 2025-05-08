@@ -2,17 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using sgi_app.application.ui;
 
 namespace sgi_app.application.ui
 {
-    public class UiTerceros
+    public class UiVentaCompra
     {
-        public static void MenuTerceros()
+        public static void MenuVentaCompra()
         {
             Console.Clear();
-            Console.WriteLine("\n--- MENÚ TERCEROS ---");
-            Console.WriteLine("\n1. Menu Tercero \t2. Tipo Terceros\n3. Tipo Documento\t4. Tercero telefono\n5. Cliente\n0. Salir");
+            Console.WriteLine("\n--- MENÚ VENTA / COMPRA ---");
+            Console.WriteLine("\n1. Compra\t2. Detalle Compra\n3. Venta\t4. Detalle Venta\n0. Salir");
             while(true)
             {
                 ConsoleKeyInfo KeyPressed = Console.ReadKey();
@@ -25,8 +24,6 @@ namespace sgi_app.application.ui
                     case '3':
                         break;
                     case '4':
-                        break;
-                    case '5':
                         break;
                     case '0':
                         UiMainMenu.MainMenu();
