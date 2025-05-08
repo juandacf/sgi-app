@@ -12,7 +12,7 @@ internal class Program
         var ServicioRegion = new RegionService(factory.CreateRegionRepository());
         var ServicioCiudad = new CiudadService(factory.CreateCiudadRepository());
         var ServicioEmpresa = new EmpresaService(factory.CreateEmpresaRepository());
-        var ServicioTercero = new TerceroService(factory.CreateTerceroRepository());
+        var  ServicioTercero = new TerceroService(factory.CreateTerceroRepository());
 
 
 
