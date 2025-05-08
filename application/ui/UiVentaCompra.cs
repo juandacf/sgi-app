@@ -18,12 +18,16 @@ namespace sgi_app.application.ui
                 switch(KeyPressed.KeyChar)
                 {
                     case '1':
+                        UiCompra.MenuCompra();
                         break;
                     case '2':
+                        UiDetalleCompra.MenuDetalleCompra();
                         break;
                     case '3':
+                        UiVenta.MenuVenta();
                         break;
                     case '4':
+                        UiDetalleVenta.MenuDetalleVenta();
                         break;
                     case '0':
                         UiMainMenu.MainMenu();

@@ -2,36 +2,35 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using sgi_app.application.ui;
 
 namespace sgi_app.application.ui
 {
-    public class UiTerceros
+    public class UiProductos
     {
-        public static void MenuTerceros()
+        public static void MenuProductos()
         {
             Console.Clear();
-            Console.WriteLine("\n--- MENÚ TERCEROS ---");
-            Console.WriteLine("\n1. Menu Tercero \t2. Tipo Terceros\n3. Tipo Documento\t4. Tercero telefono\n5. Cliente\t\t0. Salir");
+            Console.WriteLine("\n--- MENÚ PRODUCTOS ---");
+            Console.WriteLine("\n1. Producto\t\t2. Proveedor\n3. Plan\t\t\t4. Plan Producto\n5. ProductoProveedor\t0. Salir");
             while(true)
             {
                 ConsoleKeyInfo KeyPressed = Console.ReadKey();
                 switch(KeyPressed.KeyChar)
                 {
                     case '1':
-                        UiTercero.MenuTercero();
+                        UiProducto.MenuProducto();
                         break;
                     case '2':
-                        UiTipoTercero.MenuTipoTercero();
+                        UiProveedor.MenuProveedor();
                         break;
                     case '3':
-                        UiTipoDocumento.MenuTipoDocumento();
+                        UiPlan.MenuPlan();
                         break;
                     case '4':
-                        UiTerceroTelefono.MenuTerceroTelefono();
+                        UiPlanProducto.MenuPlanProducto();
                         break;
                     case '5':
-                        UiCliente.MenuCliente();
+                        UiProductoProveedor.MenuProductoProveedor();
                         break;
                     case '0':
                         UiMainMenu.MainMenu();

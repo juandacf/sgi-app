@@ -33,7 +33,7 @@ public class UiMainMenu
                     UiVentaCompra.MenuVentaCompra();
                     break;
                 case '5':
-                    UiProducto.MenuProductos();
+                    UiProductos.MenuProductos();
                     break;
                 case '0':
                     Environment.Exit(0);

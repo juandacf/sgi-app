@@ -4,13 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace sgi_app.application.ui;
-public class UiRegion
-{
-    public static void MenuRegion()
+    public class UiProductoProveedor
+    {
+            public static void MenuProductoProveedor()
     {
         Console.Clear();
-        Console.WriteLine("\n--- MENÚ REGIÓN ---");
-        Console.WriteLine("\n1. Monstrar todas\t2. Crear nueva\n3. Actualizar\t\t4. Eliminar\n0. Salir");
+        Console.WriteLine("\n--- MENÚ PRODUCTO PROVEEDOR ---");
+        Console.WriteLine("\n1. Monstrar todos\t2. Crear nuevo\n3. Actualizar\t\t4. Eliminar\n0. Salir");
         Console.Write("Opción: ");
         while (true)
         {
@@ -26,7 +26,7 @@ public class UiRegion
                 case '4':
                     break;
                 case '0':
-                    UiLugares.MenuLugares();
+                    UiProductos.MenuProductos();
                     break;
                 default:
                     Console.WriteLine("Tecla no reconocida");

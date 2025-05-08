@@ -23,6 +23,8 @@ public class UiCliente
                     break;
                 case '3':
                     break;
+                case '4':
+                    break;
                 case '0':
                     UiTerceros.MenuTerceros();
                     break;
