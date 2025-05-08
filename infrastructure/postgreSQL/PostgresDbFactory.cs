@@ -35,5 +35,9 @@ namespace sgi_app.infrastructure.postgreSQL
         public IEmpresaRepository CreateEmpresaRepository() {
             return new ImpEmpresaRepository(_connectionString);
         }
+
+        public ITerceroRepository CreateTerceroRepository(){
+            return new ImpTerceroRepository(_connectionString);
+        }
     }
 }
