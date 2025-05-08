@@ -16,9 +16,6 @@ internal class Program
         var ServicioEmpresa = new EmpresaService(factory.CreateEmpresaRepository());
         var ServicioTercero = new TerceroService(factory.CreateTerceroRepository());
 
-       Tercero nuevoTercero = new Tercero("123456789", "Juan", "Caballero", "juan.perez@mail.com", 1, 1, 1);
-
-        ServicioTercero.EditarTercero(nuevoTercero);
 
 
      
