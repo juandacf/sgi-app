@@ -30,7 +30,7 @@ public class UiMainMenu
                     UiTerceros.MenuTerceros();
                     break;
                 case '4':
-                    ui.UiVentaCompra.MenuVentaCompra();
+                    UiVentaCompra.MenuVentaCompra();
                     break;
                 case '5':
                     UiProducto.MenuProductos();
