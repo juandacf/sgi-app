@@ -43,5 +43,17 @@ namespace sgi_app.infrastructure.postgreSQL
         public IEmpleadoRepository CreateEmpleadoRepository(){
             return new ImpEmpleadoRepository(_connectionString);
         }
+
+        public IEpsRepository CreateEpsRepository(){
+            return new ImpEpsRepository(_connectionString);
+        }
+
+        public IMovCajaRepository CreateMovCajaRepository(){
+            return new ImpMovCajaRepository(_connectionString);
+        }
+
+        public IVentaRepository CreateVentaRepository(){
+            return new ImpVentaRepository(_connectionString);
+        }
     }
 }

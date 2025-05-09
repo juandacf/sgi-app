@@ -11,7 +11,7 @@ namespace sgi_app.application.ui
         {
             Console.Clear();
             Console.WriteLine("\n--- MENÚ VENTA / COMPRA ---");
-            Console.WriteLine("\n1. Compra\t2. Detalle Compra\n3. Venta\t4. Detalle Venta\n0. Salir");
+            Console.WriteLine("\n1. Compra\t\t2. Detalle Compra\n3. Venta\t\t4. Detalle Venta\n5. Movimiento Caja\t0. Salir");
             while(true)
             {
                 ConsoleKeyInfo KeyPressed = Console.ReadKey();
@@ -28,6 +28,9 @@ namespace sgi_app.application.ui
                         break;
                     case '4':
                         UiDetalleVenta.MenuDetalleVenta();
+                        break;
+                    case '5':
+                        UiMovimientoCaja.MenuMovimientoCaja();
                         break;
                     case '0':
                         UiMainMenu.MainMenu();

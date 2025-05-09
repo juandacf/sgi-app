@@ -39,6 +39,9 @@ INSERT INTO arl (nombre) VALUES
 ('Colpatria'), 
 ('Bolívar');
 
+INSERT INTO tipo_movimiento_caja (nombre, tipo) VALUES
+("Entrada", TRUE), ("Salida", FALSE), ("Ventas", FALSE), ("Reembolsos", TRUE), ("Devolucion", TRUE);
+
 -- EMPRESAS
 INSERT INTO empresa (nombre, ciudad_id, fecha_registro) VALUES 
 ('Tech Solutions S.A.', 1, '2024-01-15'),
