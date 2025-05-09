@@ -47,5 +47,9 @@ namespace sgi_app.infrastructure.postgreSQL
         public IClienteRepository CreateClienteRepository(){
             return new ImpClienteRepository(_connectionString);
         }
+        public IProveedorRepository CreateProveedorRepository(){
+            return new ImpProveedorRepository(_connectionString);
+        }
+
     }
 }

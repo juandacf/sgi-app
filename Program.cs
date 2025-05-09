@@ -15,22 +15,22 @@ internal class Program
         var ServicioTercero = new TerceroService(factory.CreateTerceroRepository());
         var ServicioArl = new ArlService(factory.CreateArlRepository());
         var ServicioCliente = new ClienteService(factory.CreateClienteRepository());
-
-        Cliente cliente = new Cliente(
+        var ServicioProveedor = new ProveedorService(factory.CreateProveedorRepository());
+        
+        Proveedor proveedor = new Proveedor(
+    IdProveedor: 1,
     Id: "123",
-    Id_cliente: 1,
-    Nombre: "Juan",
-    Apellido: "Caballero",
-    Email: "juan.perez@example.com",
-    Id_Tipo_Documento: 1,
-    Id_Tipo_Tercero: 1,
-    FechaNacimiento: new DateTime(1990, 5, 20),
-    FechaUltimaCompra: DateTime.Now,
-    Id_ciudad: 101
+    Nombre: "María",
+    Apellido: "Gómez",
+    Email: "maria.gomez@proveedores.com",
+    Id_Tipo_Documento: 2,
+    Id_Tipo_Tercero: 3,
+    Descuento: 15.5,
+    DiaPago: 7,
+    Id_ciudad: 11001
 );
 
-    ServicioCliente.EditarCliente(cliente);
-
+    ServicioProveedor.EliminarProveedor(5);
         
 
         // UiMainMenu.MainMenu();
