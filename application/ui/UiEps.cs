@@ -27,7 +27,8 @@ public class UiEps
             {
                 case '1':
                     servicioEps.MostrarTodos();
-                    Console.WriteLine("Ingrese una tecla");
+                    Console.ReadKey();
+                    MenuEps();
                     break;
                 case '2':
                     Eps eps = new Eps();

@@ -56,9 +56,9 @@ public class ImpEpsRepository : IGenericRepository<Eps>, IEpsRepository
     public void Eliminar(int id)
     {
         var connection = _conexion.ObtenerConexion();
-        string query = "DELETE FROM eps WHERE id = @id";
-        using var cmd = new NpgsqlCommand(query, connection);
-        cmd.Parameters.AddWithValue("@id", id);
-        cmd.ExecuteNonQuery();
+            string query = "DELETE FROM eps WHERE id = @id";
+            using var cmd = new NpgsqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.ExecuteNonQuery();
     }
 }
