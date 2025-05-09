@@ -7,32 +7,17 @@ internal class Program
 {
     private static void Main(string[] args)
     {
+        
         IDbFactory factory = new PostgresDbFactory(DbParameters.Parameters);
         var ServicioPais = new PaisService(factory.CreateCountryRepository());
         var ServicioRegion = new RegionService(factory.CreateRegionRepository());
         var ServicioCiudad = new CiudadService(factory.CreateCiudadRepository());
         var ServicioEmpresa = new EmpresaService(factory.CreateEmpresaRepository());
         var ServicioTercero = new TerceroService(factory.CreateTerceroRepository());
+        var ServicioEmpleado = new EmpleadoService(factory.CreateEmpleadoRepository());
         var ServicioArl = new ArlService(factory.CreateArlRepository());
         var ServicioCliente = new ClienteService(factory.CreateClienteRepository());
 
-        Cliente cliente = new Cliente(
-    Id: "123",
-    Id_cliente: 1,
-    Nombre: "Juan",
-    Apellido: "Caballero",
-    Email: "juan.perez@example.com",
-    Id_Tipo_Documento: 1,
-    Id_Tipo_Tercero: 1,
-    FechaNacimiento: new DateTime(1990, 5, 20),
-    FechaUltimaCompra: DateTime.Now,
-    Id_ciudad: 101
-);
-
-    ServicioCliente.EditarCliente(cliente);
-
-        
-
-        // UiMainMenu.MainMenu();
+        UiMainMenu.MainMenu();
     }
 }
