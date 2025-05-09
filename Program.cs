@@ -15,23 +15,6 @@ internal class Program
         var  ServicioTercero = new TerceroService(factory.CreateTerceroRepository());
         var ServicioEmpleado = new EmpleadoService(factory.CreateEmpleadoRepository());
 
-        Empleado empleado1 = new Empleado(
-            "123",                // Id
-            "Juan",                  // Nombre
-            "Caballero",                 // Apellido
-            "juan.perez@email.com",  // Email
-            1,                       // Id_Tipo_Documento
-            1,                       // Id_Tipo_Tercero
-            new DateTime(2023, 5, 1),// FechaIngreso
-            4500000.00,              // SalarioBase
-            2,                       // Id_Eps
-            1,                       // IdArl
-            101                     // Id_ciudad
-        );
-
-        ServicioEmpleado.EditarEmpleado(empleado1);
-
-
-        // UiMainMenu.MainMenu();
+        UiMainMenu.MainMenu();
     }
 }
