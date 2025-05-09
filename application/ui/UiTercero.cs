@@ -11,7 +11,7 @@ public class UiTercero
     {
         Console.Clear();
         Console.WriteLine("\n--- MENÚ TERCERO ---");
-        Console.WriteLine("\n1. Monstrar todos\t2. Crear nuevo\n3. Actualizar\t\t4. Eliminar\n0. Salir");
+        Console.WriteLine("\n1. Mostrar todos\t2. Crear nuevo\n3. Actualizar\t\t4. Eliminar\n0. Salir");
         Console.Write("Opción: ");
         while (true)
         {

@@ -22,7 +22,7 @@ namespace sgi_app.application.ui;
             Console.Clear();
             Console.WriteLine("\n--- MENÚ CIUDADES ---");
             Console.WriteLine("\n1. Monstrar todas\t2. Crear nueva\n3. Actualizar\t\t4. Eliminar\n0. Salir");
-            Console.Write("Opción: ");
+            Console.WriteLine("Opción: ");
             while(true)
             {
                 ConsoleKeyInfo KeyPressed = Console.ReadKey();
@@ -32,7 +32,7 @@ namespace sgi_app.application.ui;
                         Console.Clear();
                         servicioCiudad.ObtenerCiudad();
                         Console.WriteLine("Oprima 0 para volver al menú principal: ");
-                        
+
                         break;
                     case '2':
                         Console.Clear();
