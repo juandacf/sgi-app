@@ -1,4 +1,4 @@
-﻿using sgi_app.application.services;
+using sgi_app.application.services;
 using sgi_app.domain.entities;
 using sgi_app.domain.factory;
 using sgi_app.infrastructure.postgreSQL;
@@ -12,8 +12,13 @@ internal class Program
         var ServicioRegion = new RegionService(factory.CreateRegionRepository());
         var ServicioCiudad = new CiudadService(factory.CreateCiudadRepository());
         var ServicioEmpresa = new EmpresaService(factory.CreateEmpresaRepository());
-        var  ServicioTercero = new TerceroService(factory.CreateTerceroRepository());
-        var ServicioEmpleado = new EmpleadoService(factory.CreateEmpleadoRepository());
+        var ServicioTercero = new TerceroService(factory.CreateTerceroRepository());
+        var ServicioArl = new ArlService(factory.CreateArlRepository());
+        
+
+        
+
+        
 
         UiMainMenu.MainMenu();
     }
