@@ -20,10 +20,9 @@ namespace sgi_app.infrastructure.repositories
         public void Actualizar(Region entity)
         {
             var connection = _conexion.ObtenerConexion();
-            string query = "update region set nombre=@nombre, id_pais=@id_pais where id=@id;";
+            string query = "update region set nombre=@nombre where id=@id;";
             using var cmd = new NpgsqlCommand(query, connection);
             cmd.Parameters.AddWithValue("@nombre", entity.Nombre);
-            cmd.Parameters.AddWithValue("@id_pais", entity.Id_pais);
             cmd.Parameters.AddWithValue("@id", entity.Id);
             cmd.ExecuteNonQuery();
         }
