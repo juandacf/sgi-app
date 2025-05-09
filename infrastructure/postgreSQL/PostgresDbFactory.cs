@@ -55,5 +55,10 @@ namespace sgi_app.infrastructure.postgreSQL
         public IVentaRepository CreateVentaRepository(){
             return new ImpVentaRepository(_connectionString);
         }
+        
+        public IClienteRepository CreateClienteRepository(){
+            return new ImpClienteRepository(_connectionString);
+
+        }
     }
 }

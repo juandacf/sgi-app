@@ -29,11 +29,10 @@ namespace sgi_app.infrastructure.repositories
         }
         public void Actualizar(Ciudad ciudad){
             var connection = _conexion.ObtenerConexion();
-            string query = "update ciudad set nombre=@nombre, id_region=@id_region where id=@id";
+            string query = "update ciudad set nombre=@nombre where id=@id";
             using var cmd = new NpgsqlCommand(query, connection);
             cmd.Parameters.AddWithValue("@id", ciudad.Id);
             cmd.Parameters.AddWithValue("@nombre", ciudad.Nombre);
-            cmd.Parameters.AddWithValue("@id_region", ciudad.Id_Region);
             cmd.ExecuteNonQuery();
         }
 

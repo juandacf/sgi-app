@@ -19,7 +19,12 @@ namespace sgi_app.domain.factory //Este archivo nos permite utilizar las clases
 
       IEmpleadoRepository CreateEmpleadoRepository();
       IEpsRepository CreateEpsRepository();
+
       IMovCajaRepository CreateMovCajaRepository();
+
       IVentaRepository CreateVentaRepository();
+
+      IClienteRepository CreateClienteRepository();
+      
     }
 }
