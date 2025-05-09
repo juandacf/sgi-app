@@ -63,5 +63,9 @@ namespace sgi_app.infrastructure.postgreSQL
         public ICompraRepository CreateCompraRepository(){
             return new ImpCompraRepository(_connectionString);
         }
+        public IProveedorRepository CreateProveedorRepository(){
+            return new ImpProveedorRepository(_connectionString);
+        }
+
     }
 }

@@ -14,7 +14,7 @@ namespace sgi_app.domain.entities
         public double Descuento{get;set;}
         public int DiaPago {get;set;}
 
-        //El id personal de cada tercero será establecido a través del serial de PSQL
+        
         public Proveedor(int IdProveedor, string Id, string Nombre, string Apellido, string Email, int Id_Tipo_Documento, int Id_Tipo_Tercero, double Descuento, int DiaPago, int Id_ciudad): base(Id, Nombre, Apellido, Email, Id_Tipo_Documento, Id_Tipo_Tercero, Id_ciudad){
             this.IdProveedor = IdProveedor;
             this.Descuento = Descuento;
