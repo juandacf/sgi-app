@@ -14,13 +14,17 @@ namespace sgi_app.domain.entities
         public int Id_Tipo_Documento {get;set;}
         public  int Id_Tipo_Tercero {get;set;}
 
-        public Tercero(string Id, string Nombre, string Apellido, string Email, int Id_Tipo_Documento, int Id_Tipo_Tercero ){
+        public int Id_ciudad {get;set;}
+
+        public Tercero(string Id, string Nombre, string Apellido, string Email, int Id_Tipo_Documento, int Id_Tipo_Tercero, int Id_ciudad ){
+                   
                     this.Id = Id;
                     this.Nombre = Nombre;
                     this.Apellido = Apellido;
                     this.Email = Email;
                     this.Id_Tipo_Documento = Id_Tipo_Documento;
                     this.Id_Tipo_Tercero = Id_Tipo_Tercero;
+                    this.Id_ciudad = Id_ciudad;
         }
     }
 }

@@ -35,5 +35,43 @@ namespace sgi_app.infrastructure.postgreSQL
         public IEmpresaRepository CreateEmpresaRepository() {
             return new ImpEmpresaRepository(_connectionString);
         }
+
+        public ITerceroRepository CreateTerceroRepository(){
+            return new ImpTerceroRepository(_connectionString);
+        }
+
+        public IEmpleadoRepository CreateEmpleadoRepository(){
+            return new ImpEmpleadoRepository(_connectionString);
+        }
+
+        public IEpsRepository CreateEpsRepository(){
+            return new ImpEpsRepository(_connectionString);
+        }
+
+        public IMovCajaRepository CreateMovCajaRepository(){
+            return new ImpMovCajaRepository(_connectionString);
+        }
+
+        public IVentaRepository CreateVentaRepository(){
+            return new ImpVentaRepository(_connectionString);
+        }
+        
+        public IClienteRepository CreateClienteRepository(){
+            return new ImpClienteRepository(_connectionString);
+        }
+        
+        public ICompraRepository CreateCompraRepository(){
+            return new ImpCompraRepository(_connectionString);
+        }
+        public IProveedorRepository CreateProveedorRepository(){
+            return new ImpProveedorRepository(_connectionString);
+        }
+        public IPlanRepository CreatePlanRepository(){
+            return new ImpPlanRepository(_connectionString);
+        }
+
+        public IProductoRepository CreateProductoRepository(){
+            return new ImpProductoRepository(_connectionString);
+        }
     }
 }

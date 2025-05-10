@@ -9,7 +9,7 @@ namespace sgi_app.domain.entities
     {
         public int Id {get;set;}
         public string Nombre {get;set;}
-        public int Id_ciudad {get;set;}
+        public int Id_ciudad {get;set;}     
         public DateTime Fecha_Registro{get;set;}
         public Empresa(int Id, string Nombre, int Id_ciudad, DateTime Fecha_Registro ){
             this.Id = Id;
