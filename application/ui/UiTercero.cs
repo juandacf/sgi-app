@@ -19,6 +19,8 @@ public class UiTercero
             switch (KeyPressed.KeyChar)
             {
                 case '1':
+                    Console.Clear();
+                    
                     break;
                 case '2':
                     break;
