@@ -56,6 +56,7 @@ public class UiEmpresa
                     Console.WriteLine("Por favor ingrese el id de la empresa que quiere borrar:");
                     int EmpresaBorrarID = int.Parse(Console.ReadLine());
                     ServicioEmpresa.EliminarEmpresa(EmpresaBorrarID);
+                    Console.WriteLine("La empresa fue eliminada con éxito. Por favor, presione 0 para continuar: ");
                     break;
                 case '0':
                     UiEmpresas.MenuEmpresas();
