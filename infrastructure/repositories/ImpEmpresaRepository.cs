@@ -22,11 +22,11 @@ namespace sgi_app.infrastructure.repositories
         public void Actualizar(Empresa empresa)
         {
             var connection = _conexion.ObtenerConexion();
-            string query = "update empresa set nombre=@nombre, ciudad_id=@ciudad_id where id=@id;";
+            string query = "update empresa set nombre=@nombre where id=@id;";
             using var cmd = new NpgsqlCommand(query, connection);
-            cmd.Parameters.AddWithValue("nombre", empresa.Nombre);
-            cmd.Parameters.AddWithValue("ciudad_id", empresa.Id_ciudad);
-            cmd.Parameters.AddWithValue("id", empresa.Id);
+            cmd.Parameters.AddWithValue("@nombre", empresa.Nombre);
+            cmd.Parameters.AddWithValue("@ciudad_id", empresa.Id_ciudad);
+            cmd.Parameters.AddWithValue("@id", empresa.Id);
             cmd.ExecuteNonQuery();
 
         }

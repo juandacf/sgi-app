@@ -33,6 +33,6 @@ internal class Program
     ServicioProveedor.EliminarProveedor(5);
         
 
-        // UiMainMenu.MainMenu();
+        UiMainMenu.MainMenu();
     }
 }
