@@ -34,7 +34,7 @@ namespace sgi_app.infrastructure.repositories
             var connection = _conexion.ObtenerConexion();
             string query = "insert into cliente(id_tercero, fecha_nacimiento, fecha_ultima_compra) values (@id_tercero, @fecha_nacimiento, @fecha_ultima_compra);";
             using var cmd = new NpgsqlCommand(query, connection);
-            cmd.Parameters.AddWithValue("@id_tercero", entity.IdTercero);
+            cmd.Parameters.AddWithValue("@id_tercero", entity.Id);
             cmd.Parameters.AddWithValue("@fecha_nacimiento", entity.FechaNacimiento);
             cmd.Parameters.AddWithValue("@FechaUltimaCompra", entity.FechaUltimaCompra);
             cmd.ExecuteNonQuery();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using sgi_app.application.services;
+using sgi_app.domain.entities;
 using sgi_app.domain.factory;
 using sgi_app.infrastructure.postgreSQL;
 
@@ -25,6 +26,11 @@ public class UiCliente
             switch (KeyPressed.KeyChar)
             {
                 case '1':
+                Console.Clear();
+                ServicioCliente.ObtenerCliente();
+                    break;
+                case '2': 
+                Console.Clear();
                 Console.WriteLine("Por favor, ingrese el número del documento de identidad del cliente:");
                     string IdCliente = Console.ReadLine();
                 Console.WriteLine("Por favor, ingrese el nombre del nuevo cliente");
@@ -33,13 +39,74 @@ public class UiCliente
                     string ApellidoCliente = Console.ReadLine();
                     Console.WriteLine("Por favor, ingrese el email del cliente: ");
                     string EmailCliente = Console.ReadLine();
-                    
-                    break;
-                case '2':
+
+                    Cliente nuevoCliente = new Cliente(
+    Id: IdCliente,
+    Id_cliente: 1,
+    Nombre: NombreCliente,
+    Apellido: ApellidoCliente,
+    Email: EmailCliente,
+    Id_Tipo_Documento: 1,
+    Id_Tipo_Tercero: 3,
+    FechaNacimiento: DateTime.Now,
+    FechaUltimaCompra: DateTime.Now,
+    Id_ciudad: 1
+);
+
+ Tercero terceroNuevo = new Tercero(
+    Id: IdCliente,
+    Nombre: NombreCliente,
+    Apellido: ApellidoCliente,
+    Email: EmailCliente,
+    Id_Tipo_Documento: 1,    
+    Id_Tipo_Tercero: 3,      
+    Id_ciudad: 1          );
+
+    ServicioTercero.CrearTercero(terceroNuevo);
+    ServicioCliente.CrearCliente(nuevoCliente);
                     break;
                 case '3':
+                Console.Clear();
+                ServicioCliente.ObtenerCliente();
+                Console.WriteLine("Por favor, ingrese el id del cliente que quiere actualizar:");
+                    string IdClienteNUevo = Console.ReadLine();
+                Console.WriteLine("Por favor, ingrese el nombre del nuevo cliente");
+                    string NombreClienteNuevo= Console.ReadLine();
+                    Console.WriteLine("Por favor, ingrese el apellido del nuevo cliente: ");
+                    string ApellidoClienteNuevo= Console.ReadLine();
+                    Console.WriteLine("Por favor, ingrese el email del cliente: ");
+                    string EmailClienteNuevo = Console.ReadLine();
+
+                    Cliente nuevoClienteNuevo = new Cliente(
+    Id: IdClienteNUevo,
+    Id_cliente: 1,
+    Nombre: NombreClienteNuevo,
+    Apellido: ApellidoClienteNuevo,
+    Email: EmailClienteNuevo,
+    Id_Tipo_Documento: 1,
+    Id_Tipo_Tercero: 3,
+    FechaNacimiento: DateTime.Now,
+    FechaUltimaCompra: DateTime.Now,
+    Id_ciudad: 1
+);
+
+ Tercero terceroNuevoNuevo = new Tercero(
+    Id: IdClienteNUevo,
+    Nombre: NombreClienteNuevo,
+    Apellido: ApellidoClienteNuevo,
+    Email: EmailClienteNuevo,
+    Id_Tipo_Documento: 1,    
+    Id_Tipo_Tercero: 3,      
+    Id_ciudad: 1          );
+
                     break;
                 case '4':
+                Console.Clear();
+                ServicioCliente.ObtenerCliente();
+                Console.WriteLine("Por favor, ingrese el id del cliente que desea eliminar: ");
+                int idElegido = int.Parse(Console.ReadLine());
+                ServicioCliente.EliminarCliente(idElegido);
+                Console.WriteLine("El cliente ha sido eliminado con éxtio!");
                     break;
                 case '0':
                     UiTerceros.MenuTerceros();

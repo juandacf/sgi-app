@@ -121,6 +121,7 @@ namespace sgi_app.application.ui
                     default:
                         Console.WriteLine("Tecla no reconocida");
                         break;
+                    
                 }
             }
         }
