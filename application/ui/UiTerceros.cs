@@ -12,20 +12,20 @@ namespace sgi_app.application.ui
         {
             Console.Clear();
             Console.WriteLine("\n--- MENÚ TERCEROS ---");
-            Console.WriteLine("\n1. Menu Tercero \t2. Tipo Terceros\n3. Tipo Documento\t4. Tercero telefono\n5. Cliente\t\t0. Salir");
+            Console.WriteLine("\n1. Gestionar Clientes \t2. Gestionar Proveedores\n3. Gestionar Empleados\t0. Salir");
             while(true)
             {
                 ConsoleKeyInfo KeyPressed = Console.ReadKey();
                 switch(KeyPressed.KeyChar)
                 {
                     case '1':
-                        UiTercero.MenuTercero();
+                        UiCliente.MenuCliente();
                         break;
                     case '2':
-                        UiTipoTercero.MenuTipoTercero();
+                        UiProveedor.MenuProveedor();
                         break;
                     case '3':
-                        UiTipoDocumento.MenuTipoDocumento();
+                        UiEmpleado.MenuEmpleados();
                         break;
                     case '4':
                         UiTerceroTelefono.MenuTerceroTelefono();

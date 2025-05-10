@@ -27,7 +27,8 @@ public class UiProveedor
                 case '4':
                     break;
                 case '0':
-                    UiProductos.MenuProductos();
+                Console.WriteLine("Usted presiono 0");
+                    UiTerceros.MenuTerceros();
                     break;
                 default:
                     Console.WriteLine("Tecla no reconocida");
