@@ -66,6 +66,9 @@ namespace sgi_app.infrastructure.postgreSQL
         public IProveedorRepository CreateProveedorRepository(){
             return new ImpProveedorRepository(_connectionString);
         }
+        public IPlanRepository CreatePlanRepository(){
+            return new ImpPlanRepository(_connectionString);
+        }
 
     }
 }

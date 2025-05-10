@@ -22,5 +22,6 @@ namespace sgi_app.domain.factory //Este archivo nos permite utilizar las clases
       ICompraRepository CreateCompraRepository();
 
       IProveedorRepository CreateProveedorRepository();
+      IPlanRepository CreatePlanRepository();
     }
 }
