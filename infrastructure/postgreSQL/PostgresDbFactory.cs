@@ -70,5 +70,8 @@ namespace sgi_app.infrastructure.postgreSQL
             return new ImpPlanRepository(_connectionString);
         }
 
+        public IProductoRepository CreateProductoRepository(){
+            return new ImpProductoRepository(_connectionString);
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace sgi_app.domain.entities
         public string Nombre {get;set;}
         public int Stock {get;set;}
         public int StockMinimo {get;set;}
-        public int StockMaxinmo {get;set;}
+        public int StockMaximo {get;set;}
         public string BarCode {get;set;}
     }
 }

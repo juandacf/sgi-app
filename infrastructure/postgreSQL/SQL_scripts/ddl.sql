@@ -105,8 +105,6 @@ CREATE TABLE IF NOT EXISTS producto(
     stock INT,
     stock_min INT,
     stock_mac INT,
-    created_at DATE,
-    updated_at DATE,
     barcode VARCHAR(50)
 );
 
