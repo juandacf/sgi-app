@@ -9,10 +9,5 @@ namespace sgi_app.domain.entities
     {
         public string Nombre {get;set;}
         public bool Tipo {get;set;}
-
-        TipoMovimientoCaja(string Nombre, bool Tipo ){
-            this.Nombre = Nombre;
-            this.Tipo = Tipo;
-        }
     }
 }

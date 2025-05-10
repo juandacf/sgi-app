@@ -163,7 +163,7 @@ CREATE TABLE IF NOT EXISTS facturacion(
 ); -- A esta tabla no se le crea constructor. sólo debe tener una instancia.
 
 CREATE TABLE IF NOT EXISTS venta(
-    id_factura INTEGER,
+    id_factura SERIAL,
     fecha DATE,
     id_tercero_empleado INT,
     id_tercero_cliente INT,
