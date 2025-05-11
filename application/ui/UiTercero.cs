@@ -20,7 +20,6 @@ public class UiTercero
             {
                 case '1':
                     Console.Clear();
-                    
                     break;
                 case '2':
                     break;

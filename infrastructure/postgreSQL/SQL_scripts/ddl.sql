@@ -187,7 +187,7 @@ CREATE TABLE IF NOT EXISTS detalle_compra(
     id_producto VARCHAR(20),
     id_compra INTEGER,
     cantidad INTEGER,
-    valor INTEGER,
+    valor DECIMAL(9,2),
     PRIMARY KEY(id),
     FOREIGN KEY(id_producto) REFERENCES producto(id),
     FOREIGN KEY(id_compra) REFERENCES compra(id)
@@ -198,7 +198,7 @@ CREATE TABLE IF NOT EXISTS detalle_venta(
     id_facturacion INTEGER,
     id_producto VARCHAR(20),
     cantidad INTEGER,
-    valor INTEGER,
+    valor DECIMAL(9,2),
     PRIMARY KEY(id),
     FOREIGN KEY(id_facturacion) REFERENCES venta(id_factura),
     FOREIGN KEY(id_producto) REFERENCES producto(id)

@@ -72,9 +72,9 @@ INSERT INTO proveedor (descuento, dia_pago, id_tercero) VALUES
 (10.00, 15, '789');
 
 -- PRODUCTOS
-INSERT INTO producto (id, nombre, stock, stock_min, stock_mac, created_at, updated_at, barcode) VALUES 
-('P001', 'Laptop Lenovo', 50, 5, 100, '2024-01-01', '2024-05-01', 'LNVP001'),
-('P002', 'Mouse Logitech', 200, 20, 500, '2024-02-01', '2024-05-01', 'LTGM002');
+INSERT INTO producto (id, nombre, stock, stock_min, stock_mac, barcode) VALUES 
+('P001', 'Laptop Lenovo', 50, 5, 100, 'LNVP001'),
+('P002', 'Mouse Logitech', 200, 20, 500, 'LTGM002');
 
 -- PRODUCTO-PROVEEDOR
 INSERT INTO producto_proveedor (id_proveedor, id_producto) VALUES 
