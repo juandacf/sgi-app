@@ -21,10 +21,10 @@ namespace sgi_app.application.services
         public void ObtenerProveedor(){
             var lista = _repo.ObtenerTodos();
             foreach(var c in lista){
-                Console.WriteLine($"id: {c.IdProveedor} // nombre:{c.Nombre} // apellido: {c.Apellido} // Email:{c.Email} // Día pago: {c.DiaPago}");
+                Console.WriteLine($"id: {c.Id} // nombre:{c.Nombre} // apellido: {c.Apellido} // Email:{c.Email} // Día pago: {c.DiaPago}");
             }
         }
-        public void EliminarProveedor(int idProveedor){
+        public void EliminarProveedor(string  idProveedor){
             _repo.Eliminar(idProveedor);
         }
 
