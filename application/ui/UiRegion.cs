@@ -8,65 +8,105 @@ using sgi_app.domain.factory;
 using sgi_app.infrastructure.postgreSQL;
 using sgi_app.application.ui;
 
-namespace sgi_app.application.ui;
-public class UiRegion
+namespace sgi_app.application.ui
 {
-    public static void MenuRegion()
+    public class UiRegion
     {
-    IDbFactory factory = new PostgresDbFactory(DbParameters.Parameters);
-     var ServicioRegion = new RegionService(factory.CreateRegionRepository());
-     var ServicioPais = new PaisService(factory.CreateCountryRepository());
-        Console.Clear();
-        Console.WriteLine("\n--- MENÚ REGIÓN ---");
-        Console.WriteLine("\n1. Monstrar todas\t2. Crear nueva\n3. Actualizar\t\t4. Eliminar\n0. Salir");
-        Console.Write("Opción: ");
-        while (true)
+        public static void MenuRegion()
         {
-            ConsoleKeyInfo KeyPressed = Console.ReadKey();
-            switch (KeyPressed.KeyChar)
+            IDbFactory factory = new PostgresDbFactory(DbParameters.Parameters);
+            var ServicioRegion = new RegionService(factory.CreateRegionRepository());
+            var ServicioPais = new PaisService(factory.CreateCountryRepository());
+            Console.Clear();
+            Console.WriteLine("\n--- MENÚ REGIÓN ---");
+            Console.WriteLine("\n1. Mostrar todas\t2. Crear nueva\n3. Actualizar\t\t4. Eliminar\n0. Salir");
+            Console.Write("Opción: ");
+            while (true)
             {
-                case '1':
-                ServicioRegion.ObtenerRegion();
-                    break;
-                case '2':
-                Console.Clear();
-                ServicioPais.ObtenerPais();
-                Console.WriteLine("Por favor, ingrese el id del país al que quiere anexar la región: ");
-                int IdPais = int.Parse(Console.ReadLine());
-                Console.WriteLine("Por favor, ingrese el nombre de la region");
-                string NombreRegion = Console.ReadLine();
-                Region region = new Region(0, NombreRegion,1);
-                ServicioRegion.CrearRegion(region);
-                Console.WriteLine("La región ha sido creada con éxito. por favor, presione enter para volver al menú");
-                Console.ReadKey(true);
-                MenuRegion();
-                    break;
-                case '3':
-                Console.Clear();
-                ServicioRegion.ObtenerRegion();
-                Console.WriteLine("Por favor, Ingrese el id de la región: ");
-                int IdRegion = int.Parse(Console.ReadLine());
-                Console.WriteLine("Por favor, ingrese el nuevo nombre de la región: ");
-                string NombreRegionEditable =  Console.ReadLine();
-                Region regionEditada = new Region(IdRegion, NombreRegionEditable, 0 );
-                ServicioRegion.EditarRegion(regionEditada);
-                Console.WriteLine("La región fue editada con éxito. Por favor, oprima enter para volver al menú.");
-                Console.ReadKey();
-                MenuRegion();
-                    break;
-                case '4':
-                ServicioRegion.ObtenerRegion();
-                Console.WriteLine("Por favor, ingrese le id de la región que desea eliminar: ");
-                int RegionAEliminar = int.Parse(Console.ReadLine());
-                ServicioRegion.EliminarRegion(RegionAEliminar);
-                Console.WriteLine("La región fue eliminnada con éxito");
-                    break;
-                case '0':
-                    UiLugares.MenuLugares();
-                    break;
-                default:
-                    Console.WriteLine("Tecla no reconocida");
-                    break;
+                ConsoleKeyInfo KeyPressed = Console.ReadKey();
+                switch (KeyPressed.KeyChar)
+                {
+                    case '1':
+                        ServicioRegion.ObtenerRegion();
+                        Console.WriteLine("Presione cualquier tecla para continuar");
+                        Console.ReadKey();
+                        MenuRegion();
+                        break;
+
+                    case '2':
+                        Console.Clear();
+                        ServicioPais.ObtenerPais();
+                        int IdPais = SolicitarInt("id del país al que quiere anexar la región");
+                        string NombreRegion = SolicitarValor("nombre de la región");
+
+                        Region region = new Region(0, NombreRegion, IdPais);
+                        ServicioRegion.CrearRegion(region);
+                        Console.WriteLine("La región ha sido creada con éxito. Por favor, presione enter para volver al menú.");
+                        Console.ReadKey(true);
+                        MenuRegion();
+                        break;
+
+                    case '3':
+                        Console.Clear();
+                        ServicioRegion.ObtenerRegion();
+                        int IdRegion = SolicitarInt("id de la región");
+                        string NombreRegionEditable = SolicitarValor("nuevo nombre de la región");
+
+                        Region regionEditada = new Region(IdRegion, NombreRegionEditable, 0);
+                        ServicioRegion.EditarRegion(regionEditada);
+                        Console.WriteLine("La región fue editada con éxito. Por favor, oprima enter para volver al menú.");
+                        Console.ReadKey();
+                        MenuRegion();
+                        break;
+
+                    case '4':
+                        ServicioRegion.ObtenerRegion();
+                        int RegionAEliminar = SolicitarInt("id de la región que desea eliminar");
+                        ServicioRegion.EliminarRegion(RegionAEliminar);
+                        Console.WriteLine("La región fue eliminada con éxito.");
+                        break;
+
+                    case '0':
+                        UiLugares.MenuLugares();
+                        break;
+
+                    default:
+                        Console.WriteLine("Tecla no reconocida");
+                        break;
+                }
+            }
+        }
+
+        private static string SolicitarValor(string campo)
+        {
+            string valor;
+            do
+            {
+                Console.WriteLine($"Por favor, ingrese el {campo}: ");
+                valor = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(valor))
+                {
+                    Console.WriteLine("Este campo es obligatorio. Intente nuevamente.");
+                }
+            } while (string.IsNullOrWhiteSpace(valor));
+
+            return valor;
+        }
+
+        private static int SolicitarInt(string campo)
+        {
+            int valor;
+            while (true)
+            {
+                Console.WriteLine($"Por favor, ingrese el {campo}: ");
+                if (int.TryParse(Console.ReadLine(), out valor))
+                {
+                    return valor;
+                }
+                else
+                {
+                    Console.WriteLine("Valor inválido. Intente nuevamente.");
+                }
             }
         }
     }

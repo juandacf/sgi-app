@@ -1,9 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using sgi_app.application.services;
-using sgi_app.application.ui;
 using sgi_app.domain.entities;
 using sgi_app.domain.factory;
 using sgi_app.infrastructure.postgreSQL;
@@ -12,118 +8,193 @@ namespace sgi_app.application.ui
 {
     public class UiEmpleado
     {
-       public static void MenuEmpleados()
+        public static void MenuEmpleados()
         {
             IDbFactory factory = new PostgresDbFactory(DbParameters.Parameters);
-            var ServicioTercero = new TerceroService(factory.CreateTerceroRepository());
-            var ServicioEmpleado = new EmpleadoService(factory.CreateEmpleadoRepository());
-            Console.Clear();
-            Console.WriteLine("\n--- MENÚ Empleados ---");
-            Console.WriteLine("\n1.Ver todos \t2. Agregar Empleado\n3. Editar Empleado\t4. Eliminar Empleado \n 0. Salir");
-            while(true)
+            var servicioTercero = new TerceroService(factory.CreateTerceroRepository());
+            var servicioEmpleado = new EmpleadoService(factory.CreateEmpleadoRepository());
+
+            while (true)
             {
-                ConsoleKeyInfo KeyPressed = Console.ReadKey();
-                switch(KeyPressed.KeyChar)
+                Console.Clear();
+                Console.WriteLine("\n--- MENÚ EMPLEADOS ---");
+                Console.WriteLine("1. Ver todos\t2. Agregar Empleado");
+                Console.WriteLine("3. Editar Empleado\t4. Eliminar Empleado");
+                Console.WriteLine("0. Salir");
+                Console.Write("Opción: ");
+
+                ConsoleKeyInfo keyPressed = Console.ReadKey();
+                Console.WriteLine();
+
+                switch (keyPressed.KeyChar)
                 {
                     case '1':
-                    Console.Clear();
-                        ServicioEmpleado.ObtenerEmpleado();
-                        Console.WriteLine("Por favor, oprima 0 para volver al menú");
+                        Console.Clear();
+                        servicioEmpleado.ObtenerEmpleado();
+                        Console.WriteLine("Presione una tecla para continuar...");
+                        Console.ReadKey();
                         break;
+
                     case '2':
-                    Console.Clear();
-                    Console.WriteLine("Por favor, ingrese el número del documento de identidad del usuario:");
-                    string IdEmpleado = Console.ReadLine();
-                    Console.WriteLine("Por favor, ingrese el nombre del nuevo empleado");
-                    string NombreEmpleado = Console.ReadLine();
-                    Console.WriteLine("Por favor, ingrese el apellido del nuevo empleado: ");
-                    string ApellidoEmpleado = Console.ReadLine();
-                    Console.WriteLine("Por favor, ingrese el email del empleado: ");
-                    string EmailEmpleado = Console.ReadLine();
-                    Console.WriteLine("Por favor, ingrese  el Salario Base del empleado");
-                    double SalarioBase = double.Parse(Console.ReadLine());
-                    Empleado empleado = new Empleado(
-    Id: IdEmpleado,
-    Nombre: NombreEmpleado,
-    Apellido: ApellidoEmpleado,
-    Email: EmailEmpleado,
-    Id_Tipo_Documento: 1,     
-    Id_Tipo_Tercero: 2,      
-    FechaIngreso: DateTime.Now,
-    SalarioBase: SalarioBase,
-    Id_Eps: 1,
-    IdArl: 1,       
-    Id_ciudad: 1   );
+                        Console.Clear();
+                        Console.Write("Número de documento: ");
+                        string idEmpleado = Console.ReadLine()!;
+                        if (string.IsNullOrWhiteSpace(idEmpleado))
+                        {
+                            Console.WriteLine("ID no puede estar vacío.");
+                            break;
+                        }
 
-    Tercero tercero = new Tercero(
-    Id: IdEmpleado,
-    Nombre: NombreEmpleado,
-    Apellido: ApellidoEmpleado,
-    Email: EmailEmpleado,
-    Id_Tipo_Documento: 1,    
-    Id_Tipo_Tercero: 2,      
-    Id_ciudad: 1          );
-                        
-    ServicioTercero.CrearTercero(tercero);
-    ServicioEmpleado.CrearEmpleado(empleado);
-Console.WriteLine("Por favor, oprima 0 para volver al menú");
+                        Console.Write("Nombre: ");
+                        string nombre = Console.ReadLine()!;
+                        if (string.IsNullOrWhiteSpace(nombre))
+                        {
+                            Console.WriteLine("Nombre no puede estar vacío.");
+                            break;
+                        }
 
+                        Console.Write("Apellido: ");
+                        string apellido = Console.ReadLine()!;
+                        if (string.IsNullOrWhiteSpace(apellido))
+                        {
+                            Console.WriteLine("Apellido no puede estar vacío.");
+                            break;
+                        }
+
+                        Console.Write("Email: ");
+                        string email = Console.ReadLine()!;
+                        if (!email.Contains("@") || !email.Contains("."))
+                        {
+                            Console.WriteLine("Email inválido.");
+                            break;
+                        }
+
+                        Console.Write("Salario Base: ");
+                        if (!double.TryParse(Console.ReadLine(), out double salarioBase))
+                        {
+                            Console.WriteLine("Salario inválido.");
+                            break;
+                        }
+
+                        Empleado nuevoEmpleado = new Empleado(
+                            Id: idEmpleado,
+                            IdEmpleado: 1,
+                            Nombre: nombre,
+                            Apellido: apellido,
+                            Email: email,
+                            Id_Tipo_Documento: 1,
+                            Id_Tipo_Tercero: 2,
+                            FechaIngreso: DateTime.Now,
+                            SalarioBase: salarioBase,
+                            Id_Eps: 1,
+                            IdArl: 1,
+                            Id_ciudad: 1
+                        );
+
+                        Tercero nuevoTercero = new Tercero(
+                            Id: idEmpleado,
+                            Nombre: nombre,
+                            Apellido: apellido,
+                            Email: email,
+                            Id_Tipo_Documento: 1,
+                            Id_Tipo_Tercero: 2,
+                            Id_ciudad: 1
+                        );
+
+                        servicioTercero.CrearTercero(nuevoTercero);
+                        servicioEmpleado.CrearEmpleado(nuevoEmpleado);
+                        Console.WriteLine("Empleado creado correctamente. Presione una tecla para continuar...");
+                        Console.ReadKey();
                         break;
+
                     case '3':
                         Console.Clear();
-                        ServicioEmpleado.ObtenerEmpleado();
-                        Console.WriteLine("Por favor, ingrese el id del empleado que desea modificar ");
-                        string IdModEmpleado = Console.ReadLine();
-                        Console.WriteLine("Por favor, ingrese el nombre nuevo del nuevo empleado");
-                        string NombreEmpleadoNuevo = Console.ReadLine();
-                    Console.WriteLine("Por favor, ingrese el apellido nuevo del nuevo empleado: ");
-                    string ApellidoEmpleadoNuevo = Console.ReadLine();
-                    Console.WriteLine("Por favor, ingrese el email nuevo del empleado: ");
-                    string EmailEmpleadoNuevo = Console.ReadLine();
-                    Console.WriteLine("Por favor, ingrese  el Salario Base nuevo del empleado");
-                    double SalarioBaseNuevo = double.Parse(Console.ReadLine());
-                    Empleado empleadoNUevo = new Empleado(
-    Id: IdModEmpleado,
-    Nombre: NombreEmpleadoNuevo,
-    Apellido: ApellidoEmpleadoNuevo,
-    Email: EmailEmpleadoNuevo,
-    Id_Tipo_Documento: 1,     
-    Id_Tipo_Tercero: 2,      
-    FechaIngreso: DateTime.Now,
-    SalarioBase: SalarioBaseNuevo,
-    Id_Eps: 1,
-    IdArl: 1,       
-    Id_ciudad: 1   );
+                        servicioEmpleado.ObtenerEmpleado();
 
-    Tercero terceroNuevo = new Tercero(
-    Id: IdModEmpleado,
-    Nombre: NombreEmpleadoNuevo,
-    Apellido: ApellidoEmpleadoNuevo,
-    Email: EmailEmpleadoNuevo,
-    Id_Tipo_Documento: 1,    
-    Id_Tipo_Tercero: 2,      
-    Id_ciudad: 1          );
+                        Console.Write("ID del empleado a modificar: ");
+                        string idModificar = Console.ReadLine()!;
+                        if (string.IsNullOrWhiteSpace(idModificar))
+                        {
+                            Console.WriteLine("ID inválido.");
+                            break;
+                        }
 
-    ServicioTercero.EditarTercero(terceroNuevo);
-    ServicioEmpleado.EditarEmpleado(empleadoNUevo);
+                        Console.Write("Nuevo nombre: ");
+                        string nuevoNombre = Console.ReadLine()!;
+                        Console.Write("Nuevo apellido: ");
+                        string nuevoApellido = Console.ReadLine()!;
+                        Console.Write("Nuevo email: ");
+                        string nuevoEmail = Console.ReadLine()!;
+                        if (!nuevoEmail.Contains("@") || !nuevoEmail.Contains("."))
+                        {
+                            Console.WriteLine("Email inválido.");
+                            break;
+                        }
+
+                        Console.Write("Nuevo salario base: ");
+                        if (!double.TryParse(Console.ReadLine(), out double nuevoSalario))
+                        {
+                            Console.WriteLine("Salario inválido.");
+                            break;
+                        }
+
+                        Empleado empleadoMod = new Empleado(
+                            Id: idModificar,
+                            IdEmpleado: 1,
+                            Nombre: nuevoNombre,
+                            Apellido: nuevoApellido,
+                            Email: nuevoEmail,
+                            Id_Tipo_Documento: 1,
+                            Id_Tipo_Tercero: 2,
+                            FechaIngreso: DateTime.Now,
+                            SalarioBase: nuevoSalario,
+                            Id_Eps: 1,
+                            IdArl: 1,
+                            Id_ciudad: 1
+                        );
+
+                        Tercero terceroMod = new Tercero(
+                            Id: idModificar,
+                            Nombre: nuevoNombre,
+                            Apellido: nuevoApellido,
+                            Email: nuevoEmail,
+                            Id_Tipo_Documento: 1,
+                            Id_Tipo_Tercero: 2,
+                            Id_ciudad: 1
+                        );
+
+                        servicioTercero.EditarTercero(terceroMod);
+                        servicioEmpleado.EditarEmpleado(empleadoMod);
+                        Console.WriteLine("Empleado actualizado correctamente.");
+                        Console.ReadKey();
                         break;
+
                     case '4':
-                    Console.Clear();
-                    ServicioEmpleado.ObtenerEmpleado();
-                    Console.WriteLine("Por favor, ingrese el id del empleado a eliminar: ");
-                    string IdEmpleadoEliminar = Console.ReadLine();
-                    ServicioTercero.EliminarTercero(IdEmpleadoEliminar);
-                    ServicioEmpleado.EliminarEmpleado(IdEmpleadoEliminar);
-                    Console.WriteLine("El empleado fue eliminado con éxito.");
-                    Console.WriteLine("Por favor, oprima 0 para volver al menú");
+                        Console.Clear();
+                        servicioEmpleado.ObtenerEmpleado();
+
+                        Console.Write("ID del empleado a eliminar: ");
+                        string idEliminar = Console.ReadLine()!;
+                        if (string.IsNullOrWhiteSpace(idEliminar))
+                        {
+                            Console.WriteLine("ID inválido.");
+                            break;
+                        }
+
+                        servicioTercero.EliminarTercero(idEliminar);
+                        servicioEmpleado.EliminarEmpleado(idEliminar);
+                        Console.WriteLine("Empleado eliminado correctamente. Presione una tecla para continuar...");
+                        Console.ReadKey();
                         break;
+
                     case '0':
                         UiTerceros.MenuTerceros();
-                        break;
+                        return;
+
                     default:
-                        Console.WriteLine("Tecla no reconocida");
+                        Console.WriteLine("Opción no reconocida. Presione una tecla para continuar...");
+                        Console.ReadKey();
                         break;
-                    
                 }
             }
         }

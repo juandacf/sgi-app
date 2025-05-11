@@ -8,68 +8,115 @@ using sgi_app.application.services;
 using sgi_app.domain.entities;
 
 namespace sgi_app.application.ui;
+
 public class UiCompra
 {
     public static void MenuCompra()
     {
-    string connectionDatabase = "server=localhost;database=miniproject;user=root;password=123456;";
-    IDbFactory factory = new PostgresDbFactory(connectionDatabase);
-    var servicioCompra = new CompraService(factory.CreateCompraRepository());
+        string connectionDatabase = "server=localhost;database=miniproject;user=root;password=123456;";
+        IDbFactory factory = new PostgresDbFactory(connectionDatabase);
+        var servicioCompra = new CompraService(factory.CreateCompraRepository());
 
-    Console.Clear();
-    Console.WriteLine("\n--- MENÚ COMPRA ---");
-    Console.WriteLine("\n1. Monstrar todas\t2. Crear nueva\n3. Actualizar\t\t4. Eliminar\n0. Salir");
-    Console.Write("Opción: ");
-    while (true)
-    {
-        ConsoleKeyInfo KeyPressed = Console.ReadKey();
-        switch (KeyPressed.KeyChar)
+        var servicioEmpleado = new EmpleadoService(factory.CreateEmpleadoRepository());
+        var servicioProveedor = new ProveedorService(factory.CreateProveedorRepository());
+
+        while (true)
         {
-            case '1':
-                servicioCompra.MostrarTodos();
-                Console.ReadKey();
-                Console.WriteLine("Ingrese una tecla");
-                Console.ReadKey();
-                MenuCompra();
-                break;
-            case '2':
-                Compra compra = new Compra();
-                Console.Write("\nIngrese id del proveedor: ");
-                compra.IdTerceroProveedor =  int.Parse(Console.ReadLine());
-                Console.Write("\nIngresa id del empleado: ");
-                compra.IdTerceroEmpleado =  int.Parse(Console.ReadLine());
-                compra.Fecha = DateTime.Now;
-                Console.Write("\nIngrese documento compra: ");
-                compra.DocumentoCompra = Console.ReadLine();
-                servicioCompra.CrearCompra(compra);
-                Console.WriteLine("Ingrese una tecla");
-                Console.ReadKey();
-                MenuCompra();
-                break;
-            case '3':
-                Console.WriteLine("Id a actualizar: ");
-                int idA = int.Parse(Console.ReadLine()!);
-                Console.WriteLine("Nuevo documento: ");
-                servicioCompra.ActualizarCompra(idA, Console.ReadLine()!);
-                Console.WriteLine("Ingrese una tecla");
-                Console.ReadKey();
-                MenuCompra();
-                break;
-            case '4':
-                Console.Write("ID a eliminar: ");
-                int idE = int.Parse(Console.ReadLine()!);
-                servicioCompra.EliminarCompra(idE);
-                Console.WriteLine("Ingrese una tecla");
-                Console.ReadKey();
-                MenuCompra();
-                break;
-            case '0':
-                UiVentaCompra.MenuVentaCompra();
-                break;
-            default:
-                Console.WriteLine("Tecla no reconocida");
-                break;
+            Console.Clear();
+            Console.WriteLine("\n--- MENÚ COMPRA ---");
+            Console.WriteLine("\n1. Mostrar todas\t2. Crear nueva\n3. Actualizar\t\t4. Eliminar\n0. Salir");
+            Console.Write("Opción: ");
+            ConsoleKeyInfo KeyPressed = Console.ReadKey();
+            Console.WriteLine();
+
+            switch (KeyPressed.KeyChar)
+            {
+                case '1':
+                    servicioCompra.MostrarTodos();
+                    break;
+
+                case '2':
+                    Compra compra = new Compra();
+
+                    Console.WriteLine("Proveedores:");
+                    servicioProveedor.ObtenerProveedor();
+
+                    Console.Write("\nIngrese id del proveedor: ");
+                    if (!int.TryParse(Console.ReadLine(), out int idProveedor))
+                    {
+                        Console.WriteLine("ID del proveedor inválido.");
+                        break;
+                    }
+                    compra.IdTerceroProveedor = idProveedor;
+
+                    Console.WriteLine("\nEmpleados:");
+                    servicioEmpleado.ObtenerEmpleado();
+
+                    Console.Write("\nIngrese id del empleado: ");
+                    if (!int.TryParse(Console.ReadLine(), out int idEmpleado))
+                    {
+                        Console.WriteLine("ID del empleado inválido.");
+                        break;
+                    }
+                    compra.IdTerceroEmpleado = idEmpleado;
+
+                    compra.Fecha = DateTime.Now;
+
+                    Console.Write("\nIngrese documento de la compra: ");
+                    compra.DocumentoCompra = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(compra.DocumentoCompra))
+                    {
+                        Console.WriteLine("El documento no puede estar vacío.");
+                        break;
+                    }
+
+                    servicioCompra.CrearCompra(compra);
+                    Console.WriteLine("Compra creada con éxito.");
+                    break;
+
+                case '3':
+                    Console.Write("Id de la compra a actualizar: ");
+                    if (!int.TryParse(Console.ReadLine(), out int idActualizar))
+                    {
+                        Console.WriteLine("ID inválido.");
+                        break;
+                    }
+
+                    Console.Write("Nuevo documento: ");
+                    string nuevoDocumento = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(nuevoDocumento))
+                    {
+                        Console.WriteLine("El documento no puede estar vacío.");
+                        break;
+                    }
+
+                    servicioCompra.ActualizarCompra(idActualizar, nuevoDocumento);
+                    Console.WriteLine("Compra actualizada.");
+                    break;
+
+                case '4':
+                    Console.Write("ID a eliminar: ");
+                    if (!int.TryParse(Console.ReadLine(), out int idEliminar))
+                    {
+                        Console.WriteLine("ID inválido.");
+                        break;
+                    }
+
+                    servicioCompra.EliminarCompra(idEliminar);
+                    Console.WriteLine("Compra eliminada.");
+                    break;
+
+                case '0':
+                    UiVentaCompra.MenuVentaCompra();
+                    return;
+
+                default:
+                    Console.WriteLine("Opción no reconocida.");
+                    break;
+            }
+
+            Console.WriteLine("\nPresione una tecla para continuar...");
+            Console.ReadKey();
         }
     }
-}   
 }

@@ -13,111 +13,160 @@ public class UiCliente
     public static void MenuCliente()
     {
         IDbFactory factory = new PostgresDbFactory(DbParameters.Parameters);
-        var ServicioTercero = new TerceroService(factory.CreateTerceroRepository());
-        var ServicioCliente = new ClienteService(factory.CreateClienteRepository());
-            
-        Console.Clear();
-        Console.WriteLine("\n--- MENÚ CLIENTE ---");
-        Console.WriteLine("\n1. Monstrar todos\t2. Crear nuevo\n3. Actualizar\t\t4. Eliminar\n0. Salir");
-        Console.Write("Opción: ");
+        var servicioTercero = new TerceroService(factory.CreateTerceroRepository());
+        var servicioCliente = new ClienteService(factory.CreateClienteRepository());
+
         while (true)
         {
-            ConsoleKeyInfo KeyPressed = Console.ReadKey();
-            switch (KeyPressed.KeyChar)
+            Console.Clear();
+            Console.WriteLine("\n--- MENÚ CLIENTE ---");
+            Console.WriteLine("\n1. Mostrar todos\t2. Crear nuevo\n3. Actualizar\t\t4. Eliminar\n0. Salir");
+            Console.Write("Opción: ");
+            ConsoleKeyInfo keyPressed = Console.ReadKey();
+            Console.WriteLine();
+
+            switch (keyPressed.KeyChar)
             {
                 case '1':
-                Console.Clear();
-                ServicioCliente.ObtenerCliente();
-                Console.WriteLine("Presione 0 para volver al menú principal: ");
+                    Console.Clear();
+                    servicioCliente.ObtenerCliente();
+                    Console.WriteLine("Presione cualquier tecla para volver al menú...");
+                    Console.ReadKey(true);
                     break;
-                case '2': 
-                Console.Clear();
-                Console.WriteLine("Por favor, ingrese el número del documento de identidad del cliente:");
-                    string IdCliente = Console.ReadLine();
-                Console.WriteLine("Por favor, ingrese el nombre del nuevo cliente");
-                    string NombreCliente = Console.ReadLine();
-                    Console.WriteLine("Por favor, ingrese el apellido del nuevo cliente: ");
-                    string ApellidoCliente = Console.ReadLine();
-                    Console.WriteLine("Por favor, ingrese el email del cliente: ");
-                    string EmailCliente = Console.ReadLine();
 
-                    Cliente nuevoCliente = new Cliente(
-    Id: IdCliente,
-    Id_cliente: 1,
-    Nombre: NombreCliente,
-    Apellido: ApellidoCliente,
-    Email: EmailCliente,
-    Id_Tipo_Documento: 1,
-    Id_Tipo_Tercero: 3,
-    FechaNacimiento: DateTime.Now,
-    FechaUltimaCompra: DateTime.Now,
-    Id_ciudad: 1
-);
+                case '2':
+                    Console.Clear();
+                    Console.Write("Ingrese el número de documento del cliente: ");
+                    string idCliente = Console.ReadLine();
 
- Tercero terceroNuevo = new Tercero(
-    Id: IdCliente,
-    Nombre: NombreCliente,
-    Apellido: ApellidoCliente,
-    Email: EmailCliente,
-    Id_Tipo_Documento: 1,    
-    Id_Tipo_Tercero: 3,      
-    Id_ciudad: 1          );
+                    Console.Write("Ingrese el nombre del cliente: ");
+                    string nombre = Console.ReadLine();
 
-    ServicioTercero.CrearTercero(terceroNuevo);
-    ServicioCliente.CrearCliente(nuevoCliente);
+                    Console.Write("Ingrese el apellido del cliente: ");
+                    string apellido = Console.ReadLine();
 
-    Console.WriteLine("El cliente fue creado con éxito. Presione 0 para continuar");
+                    Console.Write("Ingrese el correo electrónico del cliente: ");
+                    string email = Console.ReadLine();
+
+                    if (string.IsNullOrWhiteSpace(idCliente) || string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(apellido) || string.IsNullOrWhiteSpace(email))
+                    {
+                        Console.WriteLine("❌ Todos los campos son obligatorios.");
+                    }
+                    else
+                    {
+                        Cliente nuevoCliente = new Cliente(
+                            Id: idCliente,
+                            Id_cliente: 1,
+                            Nombre: nombre,
+                            Apellido: apellido,
+                            Email: email,
+                            Id_Tipo_Documento: 1,
+                            Id_Tipo_Tercero: 3,
+                            FechaNacimiento: DateTime.Now,
+                            FechaUltimaCompra: DateTime.Now,
+                            Id_ciudad: 1
+                        );
+
+                        Tercero nuevoTercero = new Tercero(
+                            Id: idCliente,
+                            Nombre: nombre,
+                            Apellido: apellido,
+                            Email: email,
+                            Id_Tipo_Documento: 1,
+                            Id_Tipo_Tercero: 3,
+                            Id_ciudad: 1
+                        );
+
+                        servicioTercero.CrearTercero(nuevoTercero);
+                        servicioCliente.CrearCliente(nuevoCliente);
+                        Console.WriteLine("✅ Cliente creado con éxito.");
+                    }
+
+                    Console.WriteLine("Presione cualquier tecla para continuar...");
+                    Console.ReadKey(true);
                     break;
+
                 case '3':
-                Console.Clear();
-                ServicioCliente.ObtenerCliente();
-                Console.WriteLine("Por favor, ingrese el id del cliente que quiere actualizar:");
-                    string IdClienteNUevo = Console.ReadLine();
-                Console.WriteLine("Por favor, ingrese el nombre del nuevo cliente");
-                    string NombreClienteNuevo= Console.ReadLine();
-                    Console.WriteLine("Por favor, ingrese el apellido del nuevo cliente: ");
-                    string ApellidoClienteNuevo= Console.ReadLine();
-                    Console.WriteLine("Por favor, ingrese el email del cliente: ");
-                    string EmailClienteNuevo = Console.ReadLine();
+                    Console.Clear();
+                    servicioCliente.ObtenerCliente();
 
-                    Cliente nuevoClienteNuevo = new Cliente(
-    Id: IdClienteNUevo,
-    Id_cliente: 1,
-    Nombre: NombreClienteNuevo,
-    Apellido: ApellidoClienteNuevo,
-    Email: EmailClienteNuevo,
-    Id_Tipo_Documento: 1,
-    Id_Tipo_Tercero: 3,
-    FechaNacimiento: DateTime.Now,
-    FechaUltimaCompra: DateTime.Now,
-    Id_ciudad: 1
-);
+                    Console.Write("Ingrese el ID del cliente a actualizar: ");
+                    string idActualizar = Console.ReadLine();
 
- Tercero terceroNuevoNuevo = new Tercero(
-    Id: IdClienteNUevo,
-    Nombre: NombreClienteNuevo,
-    Apellido: ApellidoClienteNuevo,
-    Email: EmailClienteNuevo,
-    Id_Tipo_Documento: 1,    
-    Id_Tipo_Tercero: 3,      
-    Id_ciudad: 1          );
-    ServicioTercero.EditarTercero(terceroNuevoNuevo);
-ServicioCliente.EditarCliente(nuevoClienteNuevo);
+                    Console.Write("Nuevo nombre: ");
+                    string nombreNuevo = Console.ReadLine();
 
+                    Console.Write("Nuevo apellido: ");
+                    string apellidoNuevo = Console.ReadLine();
+
+                    Console.Write("Nuevo email: ");
+                    string emailNuevo = Console.ReadLine();
+
+                    if (string.IsNullOrWhiteSpace(idActualizar) || string.IsNullOrWhiteSpace(nombreNuevo) || string.IsNullOrWhiteSpace(apellidoNuevo) || string.IsNullOrWhiteSpace(emailNuevo))
+                    {
+                        Console.WriteLine("❌ Todos los campos son obligatorios.");
+                    }
+                    else
+                    {
+                        Cliente clienteActualizado = new Cliente(
+                            Id: idActualizar,
+                            Id_cliente: 1,
+                            Nombre: nombreNuevo,
+                            Apellido: apellidoNuevo,
+                            Email: emailNuevo,
+                            Id_Tipo_Documento: 1,
+                            Id_Tipo_Tercero: 3,
+                            FechaNacimiento: DateTime.Now,
+                            FechaUltimaCompra: DateTime.Now,
+                            Id_ciudad: 1
+                        );
+
+                        Tercero terceroActualizado = new Tercero(
+                            Id: idActualizar,
+                            Nombre: nombreNuevo,
+                            Apellido: apellidoNuevo,
+                            Email: emailNuevo,
+                            Id_Tipo_Documento: 1,
+                            Id_Tipo_Tercero: 3,
+                            Id_ciudad: 1
+                        );
+
+                        servicioTercero.EditarTercero(terceroActualizado);
+                        servicioCliente.EditarCliente(clienteActualizado);
+                        Console.WriteLine("✅ Cliente actualizado con éxito.");
+                    }
+
+                    Console.WriteLine("Presione cualquier tecla para continuar...");
+                    Console.ReadKey(true);
                     break;
+
                 case '4':
-                Console.Clear();
-                ServicioCliente.ObtenerCliente();
-                Console.WriteLine("Por favor, ingrese el id del cliente que desea eliminar: ");
-                string idElegido = Console.ReadLine();
-                ServicioCliente.EliminarCliente(idElegido);
-                Console.WriteLine("El cliente ha sido eliminado con éxtio! Presione 0 para continuar: ");
+                    Console.Clear();
+                    servicioCliente.ObtenerCliente();
+
+                    Console.Write("Ingrese el ID del cliente que desea eliminar: ");
+                    string idEliminar = Console.ReadLine();
+
+                    if (string.IsNullOrWhiteSpace(idEliminar))
+                    {
+                        Console.WriteLine("❌ El ID no puede estar vacío.");
+                    }
+                    else
+                    {
+                        servicioCliente.EliminarCliente(idEliminar);
+                        Console.WriteLine("✅ Cliente eliminado con éxito.");
+                    }
+
+                    Console.WriteLine("Presione cualquier tecla para continuar...");
+                    Console.ReadKey(true);
                     break;
+
                 case '0':
                     UiTerceros.MenuTerceros();
-                    break;
+                    return;
+
                 default:
-                    Console.WriteLine("Tecla no reconocida");
+                    Console.WriteLine("❌ Opción no válida. Intente nuevamente.");
                     break;
             }
         }

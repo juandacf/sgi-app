@@ -65,11 +65,11 @@ namespace sgi_app.infrastructure.repositories
             var EmpleadoList = new List <Empleado>();
             
             var connection = _conexion.ObtenerConexion();
-            string query = "SELECT e.Id, e.fecha_ingreso,  e.salario_base, e.id_tercero, e.Id_eps, e.Id_arl, t.nombre, t.apellido, t.email, t.Id_tipo_documento, t.Id_tipo_tercero, t.Id_ciudad FROM empleado AS e INNER JOIN tercero AS t on e.id_tercero = t.id;";
+            string query = "SELECT e.Id AS IdEmpleado, e.fecha_ingreso,  e.salario_base, e.id_tercero, e.Id_eps, e.Id_arl, t.nombre, t.apellido, t.email, t.Id_tipo_documento, t.Id_tipo_tercero, t.Id_ciudad FROM empleado AS e INNER JOIN tercero AS t on e.id_tercero = t.id;";
             using var cmd = new NpgsqlCommand(query, connection);
             using var reader = cmd.ExecuteReader();
             while(reader.Read()){
-                EmpleadoList.Add(new Empleado(reader.GetString("Id_tercero"), reader.GetString("nombre"), reader.GetString("apellido"), reader.GetString("email"), reader.GetInt32("Id_tipo_documento"), reader.GetInt32("Id_tipo_tercero"), reader.GetDateTime("fecha_ingreso"), reader.GetDouble("salario_base"), reader.GetInt32("Id_eps"), reader.GetInt32("Id_arl"), reader.GetInt32("Id_ciudad")  ));
+                EmpleadoList.Add(new Empleado(reader.GetString("Id_tercero"), reader.GetInt32("IdEmpleado") ,reader.GetString("nombre"), reader.GetString("apellido"), reader.GetString("email"), reader.GetInt32("Id_tipo_documento"), reader.GetInt32("Id_tipo_tercero"), reader.GetDateTime("fecha_ingreso"), reader.GetDouble("salario_base"), reader.GetInt32("Id_eps"), reader.GetInt32("Id_arl"), reader.GetInt32("Id_ciudad")  ));
             }
             return EmpleadoList;
         }

@@ -22,7 +22,7 @@ namespace sgi_app.application.services
         public void ObtenerEmpleado(){
             var lista = _repo.ObtenerTodos();
             foreach(var c in lista){
-                Console.WriteLine($"id: {c.Id} // nombre:{c.Nombre} // apellido: {c.Apellido} // Email:{c.Email} // Salario:{c.SalarioBase}");
+                Console.WriteLine($"Id: {c.IdEmpleado}, CC: {c.Id}, Nombre:{c.Nombre}, Apellido: {c.Apellido}, Email:{c.Email}, Salario:{c.SalarioBase}");
             }
         }
         public void EliminarEmpleado(string idEmpleado){

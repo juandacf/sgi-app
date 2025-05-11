@@ -15,64 +15,122 @@ public class UiProducto
         string connectionDatabase = "server=localhost;database=miniproject;user=root;password=123456;";
         IDbFactory factory = new PostgresDbFactory(connectionDatabase);
         var servicioProducto = new ProductoService(factory.CreateProductoRepository());
-        
-        Console.Clear();
-        Console.WriteLine("\n--- MENÚ PRODUCTO ---");
-        Console.WriteLine("\n1. Monstrar todos\t2. Crear nuevo\n3. Actualizar\t\t4. Eliminar\n0. Salir");
-        Console.Write("Opción: ");
+
         while (true)
         {
-            ConsoleKeyInfo KeyPressed = Console.ReadKey();
-            switch (KeyPressed.KeyChar)
+            Console.Clear();
+            Console.WriteLine("\n--- MENÚ PRODUCTO ---");
+            Console.WriteLine("1. Mostrar todos\t2. Crear nuevo\n3. Actualizar\t\t4. Eliminar\n0. Salir");
+            Console.Write("Opción: ");
+            ConsoleKeyInfo keyPressed = Console.ReadKey();
+            Console.WriteLine();
+
+            switch (keyPressed.KeyChar)
             {
                 case '1':
+                    Console.Clear();
                     servicioProducto.MostrarTodos();
-                    Console.WriteLine("Ingrese una tecla");
+                    Console.WriteLine("\nPresione una tecla para continuar...");
                     Console.ReadKey();
-                    MenuProducto();
                     break;
+
                 case '2':
+                    Console.Clear();
                     Producto producto = new Producto();
-                    Console.Write("Id producto: ");
+                    
+                    Console.Write("ID producto: ");
                     producto.Id = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(producto.Id))
+                    {
+                        Console.WriteLine("❌ El ID no puede estar vacío.");
+                        break;
+                    }
+
                     Console.Write("Nombre producto: ");
                     producto.Nombre = Console.ReadLine();
-                    Console.Write("Stock producto: ");
-                    producto.Stock = int.Parse(Console.ReadLine());
-                    Console.Write("Stock minimo producto: ");
-                    producto.StockMinimo = int.Parse(Console.ReadLine());
-                    Console.Write("Stock maximo producto: ");
-                    producto.StockMaximo = int.Parse(Console.ReadLine());
-                    Console.Write("Codigo de barras producto: ");
+                    if (string.IsNullOrWhiteSpace(producto.Nombre))
+                    {
+                        Console.WriteLine("❌ El nombre del producto no puede estar vacío.");
+                        break;
+                    }
+
+                    producto.Stock = ValidarNumero("Stock producto: ");
+                    producto.StockMinimo = ValidarNumero("Stock mínimo producto: ");
+                    producto.StockMaximo = ValidarNumero("Stock máximo producto: ");
+                    
+                    Console.Write("Código de barras producto: ");
                     producto.BarCode = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(producto.BarCode))
+                    {
+                        Console.WriteLine("❌ El código de barras no puede estar vacío.");
+                        break;
+                    }
+
                     servicioProducto.CrearProducto(producto);
-                    Console.WriteLine("Ingrese una tecla");
+                    Console.WriteLine("✅ El producto ha sido creado con éxito.");
+                    Console.WriteLine("\nPresione una tecla para continuar...");
                     Console.ReadKey();
-                    MenuProducto();
                     break;
+
                 case '3':
-                    Console.WriteLine("Id a actualizar: ");
-                    string idA = Console.ReadLine();
-                    Console.WriteLine("Nuevo stock: ");
-                    servicioProducto.ActualizarProducto(idA, int.Parse(Console.ReadLine()));
-                    Console.WriteLine("Ingrese una tecla");
+                    Console.Clear();
+                    Console.Write("ID del producto a actualizar: ");
+                    string idActualizar = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(idActualizar))
+                    {
+                        Console.WriteLine("❌ El ID no puede estar vacío.");
+                        break;
+                    }
+
+                    Console.Write("Nuevo stock: ");
+                    int nuevoStock = ValidarNumero();
+                    servicioProducto.ActualizarProducto(idActualizar, nuevoStock);
+                    Console.WriteLine("✅ El stock ha sido actualizado.");
+                    Console.WriteLine("\nPresione una tecla para continuar...");
                     Console.ReadKey();
-                    MenuProducto();
                     break;
+
                 case '4':
-                    Console.Write("ID a eliminar: ");
-                    string idE = Console.ReadLine();
-                    servicioProducto.EliminarProducto(idE);
-                    Console.WriteLine("Ingrese una tecla");
+                    Console.Clear();
+                    Console.Write("ID del producto a eliminar: ");
+                    string idEliminar = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(idEliminar))
+                    {
+                        Console.WriteLine("❌ El ID no puede estar vacío.");
+                        break;
+                    }
+
+                    servicioProducto.EliminarProducto(idEliminar);
+                    Console.WriteLine("✅ El producto ha sido eliminado.");
+                    Console.WriteLine("\nPresione una tecla para continuar...");
                     Console.ReadKey();
-                    MenuProducto();
                     break;
+
                 case '0':
                     UiProductos.MenuProductos();
-                    break;
+                    return;
+
                 default:
-                    Console.WriteLine("Tecla no reconocida");
+                    Console.WriteLine("❌ Opción no válida. Intente nuevamente.");
+                    Console.ReadKey();
                     break;
+            }
+        }
+    }
+
+    private static int ValidarNumero(string mensaje = "Ingrese un número: ")
+    {
+        int valor;
+        while (true)
+        {
+            Console.Write(mensaje);
+            if (int.TryParse(Console.ReadLine(), out valor) && valor >= 0)
+            {
+                return valor;
+            }
+            else
+            {
+                Console.WriteLine("❌ Entrada inválida. Por favor, ingrese un número válido.");
             }
         }
     }

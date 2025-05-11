@@ -22,7 +22,7 @@ namespace sgi_app.application.services
         public void ObtenerCliente(){
             var lista = _repo.ObtenerTodos();
             foreach(var c in lista){
-                Console.WriteLine($"id: {c.Id} // nombre:{c.Nombre} // apellido: {c.Apellido} // Email:{c.Email} // Fecha Nacimiento:{c.FechaNacimiento}");
+                Console.WriteLine($"Id: {c.Id_cliente}, CC: {c.Id}, Nombre:{c.Nombre}, Apellido: {c.Apellido}, Email:{c.Email}, Fecha Nacimiento:{c.FechaNacimiento}");
             }
         }
 

@@ -17,83 +17,125 @@ public class UiMovimientoCaja
         IDbFactory factory = new PostgresDbFactory(connectionDatabase);
         var movCajaService = new MovCajaService(factory.CreateMovCajaRepository());
 
-        Console.Clear();
-        Console.WriteLine("\n--- MENÚ MOVIMIENTO CAJA ---");
-        Console.WriteLine("\n1. Monstrar todos\t2. Crear nuevo\n3. Actualizar\t\t4. Eliminar\n0. Salir");
-        Console.WriteLine("Opción: ");
         while (true)
         {
-            ConsoleKeyInfo KeyPressed = Console.ReadKey();
-            switch (KeyPressed.KeyChar)
+            Console.Clear();
+            Console.WriteLine("\n--- MENÚ MOVIMIENTO CAJA ---");
+            Console.WriteLine("1. Mostrar todos\t2. Crear nuevo\n3. Actualizar\t\t4. Eliminar\n0. Salir");
+            Console.Write("Opción: ");
+            ConsoleKeyInfo keyPressed = Console.ReadKey();
+            Console.WriteLine();
+
+            switch (keyPressed.KeyChar)
             {
                 case '1':
+                    Console.Clear();
                     movCajaService.MostrarTodos();
-                    Console.WriteLine("Ingrese una tecla");
+                    Console.WriteLine("\nPresione cualquier tecla para continuar...");
                     Console.ReadKey();
-                    MenuMovimientoCaja();
                     break;
+
                 case '2':
+                    Console.Clear();
                     MovimientoCaja movCaja = new MovimientoCaja();
                     movCaja.Fecha = DateTime.Now;
-                    Console.WriteLine("Fecha ingresada: " + movCaja.Fecha);
-                    while(true)
+                    Console.WriteLine("Fecha asignada automáticamente: " + movCaja.Fecha.ToString("g"));
+
+                    bool tipoValido = false;
+                    while (!tipoValido)
                     {
-                        Console.WriteLine("1. Entrada\t2. Salida\t3. Ventas\n4. Reembolso\t5. Devolucion");
+                        Console.WriteLine("\nSeleccione el tipo de movimiento:");
+                        Console.WriteLine("1. Entrada\t2. Salida\t3. Ventas\n4. Reembolso\t5. Devolución");
                         ConsoleKeyInfo key = Console.ReadKey();
-                        switch(key.KeyChar)
+                        Console.WriteLine();
+
+                        if (int.TryParse(key.KeyChar.ToString(), out int tipo) && tipo >= 1 && tipo <= 5)
                         {
-                            case '1':
-                                movCaja.IdTipoMovimientoCaja = 1;
-                                break;
-                            case '2':
-                                movCaja.IdTipoMovimientoCaja = 2;
-                                break;
-                            case '3':
-                                movCaja.IdTipoMovimientoCaja = 3;
-                                break;
-                            case '4':
-                                movCaja.IdTipoMovimientoCaja = 4;
-                                break;
-                            case '5':
-                                movCaja.IdTipoMovimientoCaja = 5;
-                                break;
-                            default:
-                                Console.WriteLine("Ingrese un caracter válido");
-                                break;
+                            movCaja.IdTipoMovimientoCaja = tipo;
+                            tipoValido = true;
                         }
+                        else
+                        {
+                            Console.WriteLine("❌ Opción inválida. Intente nuevamente.");
+                        }
+                    }
+
+                    Console.Write("\nIngrese el valor del movimiento: ");
+                    if (double.TryParse(Console.ReadLine(), out double valor))
+                    {
+                        movCaja.Valor = valor;
+                    }
+                    else
+                    {
+                        Console.WriteLine("❌ Valor inválido. Operación cancelada.");
+                        Console.ReadKey();
                         break;
                     }
-                    Console.Write("\nIngrese valor del movimiento: ");
-                    movCaja.Valor = double.Parse(Console.ReadLine()!);
-                    Console.WriteLine("\nIngrese concepto del movimiento: ");
-                    movCaja.Concepto = Console.ReadLine();
+
+                    Console.Write("Ingrese el concepto del movimiento: ");
+                    string concepto = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(concepto))
+                    {
+                        Console.WriteLine("❌ El concepto no puede estar vacío.");
+                        Console.ReadKey();
+                        break;
+                    }
+
+                    movCaja.Concepto = concepto;
                     movCajaService.CrearMovimientoCaja(movCaja);
-                    Console.WriteLine("Ingrese una tecla");
+                    Console.WriteLine("✅ Movimiento creado exitosamente.");
+                    Console.WriteLine("Presione cualquier tecla para continuar...");
                     Console.ReadKey();
-                    MenuMovimientoCaja();
                     break;
+
                 case '3':
-                    Console.WriteLine("Id a actualizar: ");
-                    int idA = int.Parse(Console.ReadLine()!);
-                    Console.WriteLine("Nuevo concepto: ");
-                    movCajaService.ActualizarMovCaja(idA, Console.ReadLine()!);
-                    Console.WriteLine("Ingrese una tecla");
+                    Console.Clear();
+                    Console.Write("Ingrese el ID del movimiento a actualizar: ");
+                    if (int.TryParse(Console.ReadLine(), out int idActualizar))
+                    {
+                        Console.Write("Ingrese el nuevo concepto: ");
+                        string nuevoConcepto = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(nuevoConcepto))
+                        {
+                            movCajaService.ActualizarMovCaja(idActualizar, nuevoConcepto);
+                            Console.WriteLine("✅ Movimiento actualizado exitosamente.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("❌ El concepto no puede estar vacío.");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("❌ ID inválido.");
+                    }
+                    Console.WriteLine("Presione cualquier tecla para continuar...");
                     Console.ReadKey();
-                    MenuMovimientoCaja();
                     break;
+
                 case '4':
-                    Console.Write("ID a eliminar: ");
-                    int idE = int.Parse(Console.ReadLine()!);
-                    movCajaService.EliminarMovCaja(idE);
-                    Console.WriteLine("Ingrese una tecla");
+                    Console.Clear();
+                    Console.Write("Ingrese el ID del movimiento a eliminar: ");
+                    if (int.TryParse(Console.ReadLine(), out int idEliminar))
+                    {
+                        movCajaService.EliminarMovCaja(idEliminar);
+                        Console.WriteLine("✅ Movimiento eliminado exitosamente.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("❌ ID inválido.");
+                    }
+                    Console.WriteLine("Presione cualquier tecla para continuar...");
                     Console.ReadKey();
-                    MenuMovimientoCaja();
                     break;
+
                 case '0':
                     UiVentaCompra.MenuVentaCompra();
-                    break;
+                    return;
+
                 default:
-                    Console.WriteLine("Tecla no reconocida");
+                    Console.WriteLine("❌ Opción no reconocida. Intente nuevamente.");
+                    Console.ReadKey();
                     break;
             }
         }

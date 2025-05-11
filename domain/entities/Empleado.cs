@@ -7,6 +7,7 @@ namespace sgi_app.domain.entities
 {
     public class Empleado:Tercero
     {
+        public int IdEmpleado { get; set;}
         public DateTime FechaIngreso {get;set;}
         public double SalarioBase {get;set;}
 
@@ -14,12 +15,13 @@ namespace sgi_app.domain.entities
 
         public int IdArl {get;set;}
 //El id personal de cada tercero será establecido a través del serial de PSQL
-        public Empleado(string Id, string Nombre, string Apellido, string Email, int Id_Tipo_Documento, int Id_Tipo_Tercero, DateTime FechaIngreso, double SalarioBase, int Id_Eps, int IdArl, int Id_ciudad): base(Id, Nombre, Apellido, Email, Id_Tipo_Documento, Id_Tipo_Tercero, Id_ciudad){
+        public Empleado(string Id, int IdEmpleado, string Nombre, string Apellido, string Email, int Id_Tipo_Documento, int Id_Tipo_Tercero, DateTime FechaIngreso, double SalarioBase, int Id_Eps, int IdArl, int Id_ciudad): base(Id, Nombre, Apellido, Email, Id_Tipo_Documento, Id_Tipo_Tercero, Id_ciudad){
                 this.Id_Tipo_Tercero = Id_Tipo_Tercero;
                 this.FechaIngreso = FechaIngreso;
                 this.SalarioBase = SalarioBase;
                 this.IdEps = Id_Eps;
                 this.IdArl = IdArl;
+                this.IdEmpleado = IdEmpleado;
         }
     }
 }
