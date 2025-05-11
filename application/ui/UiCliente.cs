@@ -90,7 +90,7 @@ public class UiCliente
                     Console.Clear();
                     servicioCliente.ObtenerCliente();
 
-                    Console.Write("Ingrese el ID del cliente a actualizar: ");
+                    Console.Write("Ingrese CC del cliente a actualizar: ");
                     string idActualizar = Console.ReadLine();
 
                     Console.Write("Nuevo nombre: ");

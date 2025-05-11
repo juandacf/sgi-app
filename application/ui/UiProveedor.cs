@@ -110,7 +110,7 @@ namespace sgi_app.application.ui
                     case '4':
                         Console.Clear();
                         ServicioProveedor.ObtenerProveedor();
-                        string IdAEliminar = SolicitarValor("id del proveedor a eliminar");
+                        string IdAEliminar = SolicitarValor("CC del proveedor a eliminar");
                         ServicioProveedor.EliminarProveedor(IdAEliminar);
                         ServicioTercero.EliminarTercero(IdAEliminar);
                         Console.WriteLine("El proveedor pudo ser eliminado. Por favor, presione 0:");

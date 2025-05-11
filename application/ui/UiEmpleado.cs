@@ -18,7 +18,7 @@ namespace sgi_app.application.ui
             {
                 Console.Clear();
                 Console.WriteLine("\n--- MENÚ EMPLEADOS ---");
-                Console.WriteLine("1. Ver todos\t2. Agregar Empleado");
+                Console.WriteLine("1. Ver todos\t\t2. Agregar Empleado");
                 Console.WriteLine("3. Editar Empleado\t4. Eliminar Empleado");
                 Console.WriteLine("0. Salir");
                 Console.Write("Opción: ");
@@ -173,7 +173,7 @@ namespace sgi_app.application.ui
                         Console.Clear();
                         servicioEmpleado.ObtenerEmpleado();
 
-                        Console.Write("ID del empleado a eliminar: ");
+                        Console.Write("CC del empleado a eliminar: ");
                         string idEliminar = Console.ReadLine()!;
                         if (string.IsNullOrWhiteSpace(idEliminar))
                         {
