@@ -63,12 +63,7 @@ namespace sgi_app.application.ui
 
                         Console.Write("Email: ");
                         string email = Console.ReadLine()!;
-                        if (!email.Contains("@") || !email.Contains("."))
-                        {
-                            Console.WriteLine("Email inválido.");
-                            break;
-                        }
-
+                        
                         Console.Write("Salario Base: ");
                         if (!double.TryParse(Console.ReadLine(), out double salarioBase))
                         {
