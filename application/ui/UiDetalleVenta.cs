@@ -17,78 +17,108 @@ public class UiDetalleVenta
         IDbFactory factory = new PostgresDbFactory(connectionDatabase);
         var detalleVentaService = new DetalleVentaService(factory.CreateDetalleVentaRepository());
 
-        IDbFactory factoryVenta = new PostgresDbFactory(connectionDatabase);
-        var ventaServicio = new VentaService(factoryVenta.CreateVentaRepository());
-
-        IDbFactory factoryProducto = new PostgresDbFactory(connectionDatabase);
+        var ventaServicio = new VentaService(factory.CreateVentaRepository());
         var servicioProducto = new ProductoService(factory.CreateProductoRepository());
 
-        Console.Clear();
-        Console.WriteLine("\n--- MENÚ DETALLE VENTA ---");
-        Console.WriteLine("\n1. Monstrar todos\t2. Crear nuevo\n3. Actualizar\t\t4. Eliminar\n0. Salir");
-        Console.Write("Opción: \n");
         while (true)
         {
+            Console.Clear();
+            Console.WriteLine("\n--- MENÚ DETALLE VENTA ---");
+            Console.WriteLine("\n1. Mostrar todos\t2. Crear nuevo\n3. Actualizar\t\t4. Eliminar\n0. Salir");
+            Console.Write("Opción: ");
             ConsoleKeyInfo KeyPressed = Console.ReadKey();
+            Console.WriteLine();
+
             switch (KeyPressed.KeyChar)
             {
                 case '1':
                     detalleVentaService.MostrarTodos();
-                    Console.WriteLine("Ingrese una tecla");
-                    Console.ReadKey();
-                    MenuDetalleVenta();
                     break;
+
                 case '2':
                     DetalleVenta detalleVenta = new DetalleVenta();
+
                     Console.WriteLine("\nFacturas: ");
                     ventaServicio.MostrarTodos();
 
                     Console.Write("\nIngrese id de la factura: ");
-                    detalleVenta.IdFacturacion = int.Parse(Console.ReadLine());
+                    if (!int.TryParse(Console.ReadLine(), out int idFactura))
+                    {
+                        Console.WriteLine("ID de factura inválido.");
+                        break;
+                    }
+                    detalleVenta.IdFacturacion = idFactura;
 
                     Console.WriteLine("\nProductos: ");
                     servicioProducto.MostrarTodos();
+
                     Console.Write("\nIngrese Id del producto: ");
                     detalleVenta.IdProducto = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(detalleVenta.IdProducto))
+                    {
+                        Console.WriteLine("Id del producto no puede estar vacío.");
+                        break;
+                    }
 
                     Console.Write("Cantidad de producto: ");
-                    detalleVenta.Cantidad = int.Parse(Console.ReadLine());
+                    if (!int.TryParse(Console.ReadLine(), out int cantidad))
+                    {
+                        Console.WriteLine("Cantidad inválida.");
+                        break;
+                    }
+                    detalleVenta.Cantidad = cantidad;
+
                     detalleVenta.Valor = 0;
 
                     detalleVentaService.CrearDetalleVenta(detalleVenta);
-                    Console.WriteLine("Ingrese una tecla");
-                    Console.ReadKey();
-                    MenuDetalleVenta();
+                    Console.WriteLine("Detalle de venta creado con éxito.");
                     break;
+
                 case '3':
                     Console.WriteLine("\nDetalles de venta: ");
                     detalleVentaService.MostrarTodos();
-                    Console.WriteLine("Id a actualizar: ");
-                    int idA = int.Parse(Console.ReadLine());
 
-                    Console.WriteLine("Ingrese nueva cantidad: ");
-                    int idB = int.Parse(Console.ReadLine());
+                    Console.Write("Id a actualizar: ");
+                    if (!int.TryParse(Console.ReadLine(), out int idActualizar))
+                    {
+                        Console.WriteLine("ID inválido.");
+                        break;
+                    }
 
-                    detalleVentaService.ActualizarDetalleVenta(idA, idB);
-                    Console.WriteLine("Ingrese una tecla");
-                    Console.ReadKey();
-                    MenuDetalleVenta();
+                    Console.Write("Ingrese nueva cantidad: ");
+                    if (!int.TryParse(Console.ReadLine(), out int nuevaCantidad))
+                    {
+                        Console.WriteLine("Cantidad inválida.");
+                        break;
+                    }
+
+                    detalleVentaService.ActualizarDetalleVenta(idActualizar, nuevaCantidad);
+                    Console.WriteLine("Detalle de venta actualizado.");
                     break;
+
                 case '4':
                     Console.Write("ID a eliminar: ");
-                    int idE = int.Parse(Console.ReadLine());
-                    detalleVentaService.EliminarDetalleVenta(idE);
-                    Console.WriteLine("Ingrese una tecla");
-                    Console.ReadKey();
-                    MenuDetalleVenta();
+                    if (!int.TryParse(Console.ReadLine(), out int idEliminar))
+                    {
+                        Console.WriteLine("ID inválido.");
+                        break;
+                    }
+
+                    detalleVentaService.EliminarDetalleVenta(idEliminar);
+                    Console.WriteLine("Detalle de venta eliminado.");
                     break;
+
                 case '0':
                     UiVentaCompra.MenuVentaCompra();
-                    break;
+                    return;
+
                 default:
-                    Console.WriteLine("Tecla no reconocida");
+                    Console.WriteLine("Tecla no reconocida.");
                     break;
             }
+
+            Console.WriteLine("\nPresione cualquier tecla para continuar...");
+            Console.ReadKey();
         }
     }
 }

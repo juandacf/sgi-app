@@ -24,5 +24,6 @@ namespace sgi_app.domain.factory //Este archivo nos permite utilizar las clases
       IPlanRepository CreatePlanRepository();
       IProductoRepository CreateProductoRepository();
       IDetalleVentaRepository CreateDetalleVentaRepository();
+      IDetalleCompraRepository CreateDetalleCompraRepository();
     }
 }
