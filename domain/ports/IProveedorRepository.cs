@@ -8,6 +8,6 @@ namespace sgi_app.domain.ports
 {
     public interface IProveedorRepository:IGenericRepository<Proveedor>
     {
-        
+        void Eliminar(string IdProveedor);
     }
 }

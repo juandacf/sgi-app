@@ -17,6 +17,7 @@ internal class Program
         var ServicioEmpleado = new EmpleadoService(factory.CreateEmpleadoRepository());
         var ServicioArl = new ArlService(factory.CreateArlRepository());
         var ServicioCliente = new ClienteService(factory.CreateClienteRepository());
+        var ServicioProveedor =  new ProveedorService(factory.CreateProveedorRepository());
 
         UiMainMenu.MainMenu();
     }

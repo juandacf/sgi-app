@@ -28,6 +28,7 @@ namespace sgi_app.application.ui
                     case '1':
                     Console.Clear();
                         ServicioEmpleado.ObtenerEmpleado();
+                        Console.WriteLine("Por favor, oprima 0 para volver al menú");
                         break;
                     case '2':
                     Console.Clear();
@@ -65,8 +66,8 @@ namespace sgi_app.application.ui
                         
     ServicioTercero.CrearTercero(tercero);
     ServicioEmpleado.CrearEmpleado(empleado);
-    Console.WriteLine("El empleado fue agregado con éxito. Presione enter, por favor");
-    Console.ReadKey(true);
+Console.WriteLine("Por favor, oprima 0 para volver al menú");
+
                         break;
                     case '3':
                         Console.Clear();
@@ -114,6 +115,7 @@ namespace sgi_app.application.ui
                     ServicioTercero.EliminarTercero(IdEmpleadoEliminar);
                     ServicioEmpleado.EliminarEmpleado(IdEmpleadoEliminar);
                     Console.WriteLine("El empleado fue eliminado con éxito.");
+                    Console.WriteLine("Por favor, oprima 0 para volver al menú");
                         break;
                     case '0':
                         UiTerceros.MenuTerceros();
@@ -121,6 +123,7 @@ namespace sgi_app.application.ui
                     default:
                         Console.WriteLine("Tecla no reconocida");
                         break;
+                    
                 }
             }
         }

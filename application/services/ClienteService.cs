@@ -22,11 +22,11 @@ namespace sgi_app.application.services
         public void ObtenerCliente(){
             var lista = _repo.ObtenerTodos();
             foreach(var c in lista){
-                Console.WriteLine($"id: {c.Id_cliente} // nombre:{c.Nombre} // apellido: {c.Apellido} // Email:{c.Email} // Fecha Nacimiento:{c.FechaNacimiento}");
+                Console.WriteLine($"id: {c.Id} // nombre:{c.Nombre} // apellido: {c.Apellido} // Email:{c.Email} // Fecha Nacimiento:{c.FechaNacimiento}");
             }
         }
 
-        public void EliminarCliente(int idCliente){
+        public void EliminarCliente(string idCliente){
             _repo.Eliminar(idCliente);
         }
 
