@@ -8,6 +8,6 @@ namespace sgi_app.domain.ports
 {
     public interface IClienteRepository: IGenericRepository<Cliente>
     {
-        
+       void Eliminar (string var);
     }
 }

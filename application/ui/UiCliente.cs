@@ -28,6 +28,7 @@ public class UiCliente
                 case '1':
                 Console.Clear();
                 ServicioCliente.ObtenerCliente();
+                Console.WriteLine("Presione 0 para volver al menú principal: ");
                     break;
                 case '2': 
                 Console.Clear();
@@ -64,6 +65,8 @@ public class UiCliente
 
     ServicioTercero.CrearTercero(terceroNuevo);
     ServicioCliente.CrearCliente(nuevoCliente);
+
+    Console.WriteLine("El cliente fue creado con éxito. Presione 0 para continuar");
                     break;
                 case '3':
                 Console.Clear();
@@ -98,15 +101,17 @@ public class UiCliente
     Id_Tipo_Documento: 1,    
     Id_Tipo_Tercero: 3,      
     Id_ciudad: 1          );
+    ServicioTercero.EditarTercero(terceroNuevoNuevo);
+ServicioCliente.EditarCliente(nuevoClienteNuevo);
 
                     break;
                 case '4':
                 Console.Clear();
                 ServicioCliente.ObtenerCliente();
                 Console.WriteLine("Por favor, ingrese el id del cliente que desea eliminar: ");
-                int idElegido = int.Parse(Console.ReadLine());
+                string idElegido = Console.ReadLine();
                 ServicioCliente.EliminarCliente(idElegido);
-                Console.WriteLine("El cliente ha sido eliminado con éxtio!");
+                Console.WriteLine("El cliente ha sido eliminado con éxtio! Presione 0 para continuar: ");
                     break;
                 case '0':
                     UiTerceros.MenuTerceros();
