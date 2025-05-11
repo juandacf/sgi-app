@@ -11,73 +11,111 @@ using sgi_app.application.ui;
 
 namespace sgi_app.application.ui;
 
-    public class UiCiudad
+public class UiCiudad
+{
+    public static void MenuCiudad()
     {
-        public static void MenuCiudad(){
-            
-            IDbFactory factory = new PostgresDbFactory(DbParameters.Parameters);
-            var servicioCiudad = new CiudadService(factory.CreateCiudadRepository());
-            var ServicioRegion = new RegionService(factory.CreateRegionRepository());
+        IDbFactory factory = new PostgresDbFactory(DbParameters.Parameters);
+        var servicioCiudad = new CiudadService(factory.CreateCiudadRepository());
+        var servicioRegion = new RegionService(factory.CreateRegionRepository());
 
+        while (true)
+        {
             Console.Clear();
             Console.WriteLine("\n--- MENÚ CIUDADES ---");
-            Console.WriteLine("\n1. Monstrar todas\t2. Crear nueva\n3. Actualizar\t\t4. Eliminar\n0. Salir");
-            Console.WriteLine("Opción: ");
-            while(true)
-            {
-                ConsoleKeyInfo KeyPressed = Console.ReadKey();
-                switch(KeyPressed.KeyChar)
-                {
-                    case '1':
-                        Console.Clear();
-                        servicioCiudad.ObtenerCiudad();
-                        Console.WriteLine("Oprima 0 para volver al menú principal: ");
+            Console.WriteLine("\n1. Mostrar todas\t2. Crear nueva\n3. Actualizar\t\t4. Eliminar\n0. Salir");
+            Console.Write("Opción: ");
+            ConsoleKeyInfo keyPressed = Console.ReadKey();
+            Console.WriteLine();
 
-                        break;
-                    case '2':
-                        Console.Clear();
-                        ServicioRegion.ObtenerRegion();
-                        Console.WriteLine("Por favor, ingrese el nombre de la región a la que quiere agregarle la ciudad: ");
-                        int IdRegion = int.Parse(Console.ReadLine());
-                        Console.WriteLine("Por favor, escoja el nombre de la ciudad a  agregar: ");
-                        string NombreCiudad = Console.ReadLine();
-                        Ciudad ciudad = new Ciudad(0,NombreCiudad,IdRegion);
-                        servicioCiudad.CrearCiudad(ciudad);
-                        Console.WriteLine("La ciudad ha sido creada con éxito. Por favor, oprima enter para volver al menú principal");
-                        Console.ReadKey(true);
-                        MenuCiudad();
-                        break;
-                    case '3':
+            switch (keyPressed.KeyChar)
+            {
+                case '1':
                     Console.Clear();
                     servicioCiudad.ObtenerCiudad();
-                    Console.WriteLine("Por favor, ingrese el id de la ciudad que quiere modificar: ");
-                    int IdEscogido = int.Parse(Console.ReadLine());
-                    Console.WriteLine("Por favor, escoja el nuevo nombre para la ciudad: ");
-                    string NuevoNombre = Console.ReadLine();
-                    Ciudad ciudadEditada =  new Ciudad(IdEscogido, NuevoNombre, 0);
-                    servicioCiudad.EditarCiudad(ciudadEditada);
-                    Console.WriteLine("La ciudad ha sido editada con éxito. Presione enter para volver al menú principal");
+                    Console.WriteLine("Presione cualquier tecla para volver al menú...");
                     Console.ReadKey(true);
-                    MenuCiudad();
-                        break;
-                    case '4':
+                    break;
+
+                case '2':
+                    Console.Clear();
+                    servicioRegion.ObtenerRegion();
+                    Console.Write("Ingrese el ID de la región donde desea agregar la ciudad: ");
+                    if (!int.TryParse(Console.ReadLine(), out int idRegion))
+                    {
+                        Console.WriteLine("❌ ID no válido.");
+                    }
+                    else
+                    {
+                        Console.Write("Ingrese el nombre de la ciudad a agregar: ");
+                        string nombreCiudad = Console.ReadLine();
+                        if (string.IsNullOrWhiteSpace(nombreCiudad))
+                        {
+                            Console.WriteLine("❌ El nombre de la ciudad no puede estar vacío.");
+                        }
+                        else
+                        {
+                            Ciudad ciudad = new Ciudad(0, nombreCiudad, idRegion);
+                            servicioCiudad.CrearCiudad(ciudad);
+                            Console.WriteLine("✅ Ciudad creada con éxito.");
+                        }
+                    }
+                    Console.WriteLine("Presione cualquier tecla para volver al menú...");
+                    Console.ReadKey(true);
+                    break;
+
+                case '3':
                     Console.Clear();
                     servicioCiudad.ObtenerCiudad();
-                    Console.WriteLine("Por favor, ingrese el id de la ciudad que quiere eliminar: ");
-                    int IdCiudadEliminar = int.Parse(Console.ReadLine());
-                    servicioCiudad.EliminarCiudad(IdCiudadEliminar);
-                    Console.WriteLine("La ciudad ha sido eliminada con éxito. Presione enter para volver al menú");
+                    Console.Write("Ingrese el ID de la ciudad que desea modificar: ");
+                    if (!int.TryParse(Console.ReadLine(), out int idCiudadEditar))
+                    {
+                        Console.WriteLine("❌ ID no válido.");
+                    }
+                    else
+                    {
+                        Console.Write("Ingrese el nuevo nombre para la ciudad: ");
+                        string nuevoNombre = Console.ReadLine();
+                        if (string.IsNullOrWhiteSpace(nuevoNombre))
+                        {
+                            Console.WriteLine("❌ El nombre no puede estar vacío.");
+                        }
+                        else
+                        {
+                            Ciudad ciudadEditada = new Ciudad(idCiudadEditar, nuevoNombre, 0);
+                            servicioCiudad.EditarCiudad(ciudadEditada);
+                            Console.WriteLine("✅ Ciudad modificada con éxito.");
+                        }
+                    }
+                    Console.WriteLine("Presione cualquier tecla para volver al menú...");
                     Console.ReadKey(true);
-                    MenuCiudad();
-                        break;
-                    case '0':
-                        UiLugares.MenuLugares();
-                        break;
-                    default:
-                        Console.WriteLine("Tecla no reconocida");
-                        break;
-                }
+                    break;
+
+                case '4':
+                    Console.Clear();
+                    servicioCiudad.ObtenerCiudad();
+                    Console.Write("Ingrese el ID de la ciudad que desea eliminar: ");
+                    if (!int.TryParse(Console.ReadLine(), out int idCiudadEliminar))
+                    {
+                        Console.WriteLine("❌ ID no válido.");
+                    }
+                    else
+                    {
+                        servicioCiudad.EliminarCiudad(idCiudadEliminar);
+                        Console.WriteLine("✅ Ciudad eliminada con éxito.");
+                    }
+                    Console.WriteLine("Presione cualquier tecla para volver al menú...");
+                    Console.ReadKey(true);
+                    break;
+
+                case '0':
+                    UiLugares.MenuLugares();
+                    return;
+
+                default:
+                    Console.WriteLine("❌ Opción no válida. Intente de nuevo.");
+                    break;
             }
         }
-        
     }
+}

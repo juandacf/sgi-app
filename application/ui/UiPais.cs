@@ -13,59 +13,96 @@ public class UiPais
 {
     public static void MenuPais()
     {
-    IDbFactory factory = new PostgresDbFactory(DbParameters.Parameters);
-     var ServicioPais = new PaisService(factory.CreateCountryRepository());
+        IDbFactory factory = new PostgresDbFactory(DbParameters.Parameters);
+        var servicioPais = new PaisService(factory.CreateCountryRepository());
 
-        Console.Clear();
-        Console.WriteLine("\n--- MENÚ PAÍS ---");
-        Console.WriteLine("\n1. Monstrar todos\t2. Crear nuevo\n3. Actualizar\t\t4. Eliminar\n0. Salir");
-        Console.Write("Opción: ");
         while (true)
         {
-            ConsoleKeyInfo KeyPressed = Console.ReadKey();
-            switch (KeyPressed.KeyChar)
+            Console.Clear();
+            Console.WriteLine("\n--- MENÚ PAÍS ---");
+            Console.WriteLine("1. Mostrar todos\t2. Crear nuevo\n3. Actualizar\t\t4. Eliminar\n0. Salir");
+            Console.Write("Opción: ");
+            ConsoleKeyInfo keyPressed = Console.ReadKey();
+            Console.WriteLine();
+
+            switch (keyPressed.KeyChar)
             {
                 case '1':
-                    ServicioPais.ObtenerPais();
+                    Console.Clear();
+                    servicioPais.ObtenerPais();
+                    Console.WriteLine("\nPresione una tecla para continuar...");
+                    Console.ReadKey();
                     break;
+
                 case '2':
                     Console.Clear();
-                    Console.WriteLine("Por favor, ingrese el nombre del país: ");
-                    string NombrePais = Console.ReadLine();
-                    Pais pais = new Pais(NombrePais, 0);
-                    ServicioPais.CrearPais(pais);
-                    Console.WriteLine("El país ha sido creado con éxito. Presione enter para volver al menú de país");
-                    Console.ReadKey(true);
-                    MenuPais();
+                    Console.WriteLine("Por favor, ingrese el nombre del país:");
+                    string nombrePais = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(nombrePais))
+                    {
+                        Console.WriteLine("❌ Nombre inválido.");
+                    }
+                    else
+                    {
+                        var nuevoPais = new Pais(nombrePais, 0);
+                        servicioPais.CrearPais(nuevoPais);
+                        Console.WriteLine("✅ El país ha sido creado con éxito.");
+                    }
+                    Console.WriteLine("\nPresione una tecla para continuar...");
+                    Console.ReadKey();
                     break;
+
                 case '3':
                     Console.Clear();
-                    ServicioPais.ObtenerPais();
-                    Console.WriteLine("Por favor, ingrese el id del país que quiere editar: ");
-                    int PaisId = int.Parse(Console.ReadLine());
-                    Console.WriteLine("Por favor, ingrese el nuevo nombre para el país: ");
-                    string NuevoNombrePais =  Console.ReadLine();
-                    Pais paisEditado = new Pais(NuevoNombrePais, PaisId);
-                    ServicioPais.EditarPais(paisEditado);
-                    Console.WriteLine("El país ha sido editado con éxito. Por favor, presione enter para volver al menú de país:");
-                    Console.ReadKey(true);
-                    MenuPais();
+                    servicioPais.ObtenerPais();
+                    Console.Write("\nIngrese el ID del país a editar: ");
+                    if (int.TryParse(Console.ReadLine(), out int paisId))
+                    {
+                        Console.Write("Ingrese el nuevo nombre del país: ");
+                        string nuevoNombre = Console.ReadLine();
+                        if (string.IsNullOrWhiteSpace(nuevoNombre))
+                        {
+                            Console.WriteLine("❌ El nombre no puede estar vacío.");
+                        }
+                        else
+                        {
+                            var paisEditado = new Pais(nuevoNombre, paisId);
+                            servicioPais.EditarPais(paisEditado);
+                            Console.WriteLine("✅ El país ha sido editado con éxito.");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("❌ ID inválido.");
+                    }
+                    Console.WriteLine("\nPresione una tecla para continuar...");
+                    Console.ReadKey();
                     break;
+
                 case '4':
                     Console.Clear();
-                    ServicioPais.ObtenerPais();
-                    Console.WriteLine("Por favor, ingrese el id del país que quiere eliminar: ");
-                    int PaisIdEliminar = int.Parse(Console.ReadLine());
-                    ServicioPais.EliminarPais(PaisIdEliminar);
-                    Console.WriteLine("El país ha sido eliminado con éxito");
-                    Console.ReadKey(true);
-                    MenuPais();
+                    servicioPais.ObtenerPais();
+                    Console.Write("\nIngrese el ID del país a eliminar: ");
+                    if (int.TryParse(Console.ReadLine(), out int idEliminar))
+                    {
+                        servicioPais.EliminarPais(idEliminar);
+                        Console.WriteLine("✅ El país ha sido eliminado con éxito.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("❌ ID inválido.");
+                    }
+                    Console.WriteLine("\nPresione una tecla para continuar...");
+                    Console.ReadKey();
                     break;
+
                 case '0':
                     UiLugares.MenuLugares();
-                    break;
+                    return;
+
                 default:
-                    Console.WriteLine("Tecla no reconocida");
+                    Console.WriteLine("❌ Opción no válida. Intente nuevamente.");
+                    Console.ReadKey();
                     break;
             }
         }

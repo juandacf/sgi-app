@@ -70,7 +70,6 @@ public class UiDetalleCompra
                     }
                     detalleCompra.Cantidad = cantidad;
 
-                    // Aquí podrías calcular el valor si lo deseas
                     detalleCompra.Valor = 0;
 
                     detalleCompraService.CrearDetalleCompra(detalleCompra);

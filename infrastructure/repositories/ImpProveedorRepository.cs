@@ -43,10 +43,15 @@ namespace sgi_app.infrastructure.repositories
 
         public void Eliminar(int var)
         {
+            
+        }
+
+        public void Eliminar(string IdProveedor)
+        {
             var connection = _conexion.ObtenerConexion();
-            string query = "Delete from proveedor where id=@var";
+            string query = "Delete from proveedor where id_tercero=@var";
             using var cmd = new NpgsqlCommand(query, connection);
-            cmd.Parameters.AddWithValue("@var", var);
+            cmd.Parameters.AddWithValue("@var", IdProveedor);
             cmd.ExecuteNonQuery();
         }
 

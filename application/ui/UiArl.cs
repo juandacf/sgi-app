@@ -9,61 +9,98 @@ using sgi_app.infrastructure.postgreSQL;
 using sgi_app.application.ui;
 public class UiArl
 {
-    
     public static void MenuArl()
     {
-    IDbFactory factory = new PostgresDbFactory(DbParameters.Parameters);
-     var ServicioArl = new ArlService(factory.CreateArlRepository());
+        IDbFactory factory = new PostgresDbFactory(DbParameters.Parameters);
+        var ServicioArl = new ArlService(factory.CreateArlRepository());
         Console.Clear();
         Console.WriteLine("\n--- MENÚ ARL ---");
-        Console.WriteLine("\n1. Monstrar todas\t2. Crear nueva\n3. Actualizar\t\t4. Eliminar\n0. Salir");
+        Console.WriteLine("\n1. Mostrar todas\t2. Crear nueva\n3. Actualizar\t\t4. Eliminar\n0. Salir");
         Console.Write("Opción: ");
+
         while (true)
         {
             ConsoleKeyInfo KeyPressed = Console.ReadKey();
+            Console.WriteLine();
             switch (KeyPressed.KeyChar)
             {
                 case '1':
+                    Console.Clear();
                     ServicioArl.ObtenerArl();
                     break;
+
                 case '2':
                     Console.Clear();
-                    Console.WriteLine("Por favor, ingrese el nombre de la arl: ");
-                    string NombreArl = Console.ReadLine();
-                    Arl arl = new Arl(NombreArl,0);
-                    ServicioArl.CrearArl(arl);
-                    Console.WriteLine("La Arl ha sido creada con éxito. Presione enter para volver al menú de Arl");
-                    Console.ReadKey(true);
+                    Console.Write("Por favor, ingrese el nombre de la ARL: ");
+                    string nombreArl = Console.ReadLine();
+
+                    if (string.IsNullOrWhiteSpace(nombreArl))
+                    {
+                        Console.WriteLine("❌ El nombre de la ARL no puede estar vacío.");
+                    }
+                    else
+                    {
+                        Arl nuevaArl = new Arl(nombreArl, 0);
+                        ServicioArl.CrearArl(nuevaArl);
+                        Console.WriteLine("✅ La ARL ha sido creada con éxito.");
+                    }
+                    Console.WriteLine("Presione Enter para volver al menú.");
+                    Console.ReadKey();
                     MenuArl();
                     break;
+
                 case '3':
                     Console.Clear();
                     ServicioArl.ObtenerArl();
-                    Console.WriteLine("Por favor, ingrese el id del Arl que quiere editar: ");
-                    int ArlId =  int.Parse(Console.ReadLine());
-                    Console.WriteLine("Por favor, ingrese el nuevo nombre de la Arl");
-                    string NuevoNombreArl = Console.ReadLine();
-                    Arl arlEditada = new Arl(NuevoNombreArl, ArlId);
-                    ServicioArl.EditarArl(arlEditada);
-                    Console.WriteLine("La Arl ha sido editada con éxito. Presione enter para volver al menú de Arl");
-                    Console.ReadKey(true);
+                    Console.Write("Ingrese el ID de la ARL que desea editar: ");
+                    if (!int.TryParse(Console.ReadLine(), out int arlIdEditar))
+                    {
+                        Console.WriteLine("❌ ID inválido.");
+                    }
+                    else
+                    {
+                        Console.Write("Ingrese el nuevo nombre de la ARL: ");
+                        string nuevoNombre = Console.ReadLine();
+                        if (string.IsNullOrWhiteSpace(nuevoNombre))
+                        {
+                            Console.WriteLine("❌ El nombre no puede estar vacío.");
+                        }
+                        else
+                        {
+                            Arl arlEditada = new Arl(nuevoNombre, arlIdEditar);
+                            ServicioArl.EditarArl(arlEditada);
+                            Console.WriteLine("✅ La ARL ha sido editada con éxito.");
+                        }
+                    }
+                    Console.WriteLine("Presione Enter para volver al menú.");
+                    Console.ReadKey();
                     MenuArl();
                     break;
+
                 case '4':
                     Console.Clear();
                     ServicioArl.ObtenerArl();
-                    Console.WriteLine("Por favor, ingrese el id del Arl que quiere eliminar: ");
-                    int ArlIdEliminar =  int.Parse(Console.ReadLine());    
-                    ServicioArl.EliminarArl(ArlIdEliminar);
-                    Console.WriteLine("La Arl ha sido eliminada con éxito. Presione enter para volver al menú de Arl");
-                    Console.ReadKey(true);
+                    Console.Write("Ingrese el ID de la ARL que desea eliminar: ");
+                    if (!int.TryParse(Console.ReadLine(), out int arlIdEliminar))
+                    {
+                        Console.WriteLine("❌ ID inválido.");
+                    }
+                    else
+                    {
+                        ServicioArl.EliminarArl(arlIdEliminar);
+                        Console.WriteLine("✅ La ARL ha sido eliminada con éxito.");
+                    }
+                    Console.WriteLine("Presione Enter para volver al menú.");
+                    Console.ReadKey();
                     MenuArl();
                     break;
+
                 case '0':
                     UiEmpresas.MenuEmpresas();
                     break;
+
                 default:
-                    Console.WriteLine("Tecla no reconocida");
+                    Console.WriteLine("❌ Opción no válida.");
                     break;
             }
         }

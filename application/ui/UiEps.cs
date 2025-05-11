@@ -16,47 +16,98 @@ public class UiEps
         IDbFactory factory = new PostgresDbFactory(connectionDatabase);
         var servicioEps = new EpsService(factory.CreateEpsRepository());
 
-        Console.Clear();
-        Console.WriteLine("\n--- MENÚ EPS ---");
-        Console.WriteLine("\n1. Monstrar todas\t2. Crear nueva\n3. Actualizar\t\t4. Eliminar\n0. Salir");
-        Console.WriteLine("Opción: ");
         while (true)
         {
-            ConsoleKeyInfo KeyPressed = Console.ReadKey();
-            switch (KeyPressed.KeyChar)
+            Console.Clear();
+            Console.WriteLine("\n--- MENÚ EPS ---");
+            Console.WriteLine("\n1. Mostrar todas\t2. Crear nueva\n3. Actualizar\t\t4. Eliminar\n0. Salir");
+            Console.Write("Opción: ");
+            ConsoleKeyInfo keyPressed = Console.ReadKey();
+            Console.WriteLine();
+
+            switch (keyPressed.KeyChar)
             {
                 case '1':
+                    Console.Clear();
                     servicioEps.MostrarTodos();
+                    Console.WriteLine("\nPresione cualquier tecla para continuar...");
                     Console.ReadKey();
-                    MenuEps();
                     break;
+
                 case '2':
-                    Eps eps = new Eps();
-                    Console.Write("Nombre: ");
-                    eps.Nombre = Console.ReadLine();
-                    servicioEps.CrearEps(eps);
-                    Console.WriteLine("Ingrese una tecla");
+                    Console.Clear();
+                    Console.Write("Nombre de la nueva EPS: ");
+                    string nombre = Console.ReadLine();
+
+                    if (string.IsNullOrWhiteSpace(nombre))
+                    {
+                        Console.WriteLine("❌ El nombre no puede estar vacío.");
+                    }
+                    else
+                    {
+                        var nuevaEps = new Eps { Nombre = nombre };
+                        servicioEps.CrearEps(nuevaEps);
+                        Console.WriteLine("✅ EPS creada exitosamente.");
+                    }
+
+                    Console.WriteLine("Presione cualquier tecla para continuar...");
+                    Console.ReadKey();
                     break;
+
                 case '3':
-                    Console.WriteLine("Id a actualizar: ");
-                    int idA = int.Parse(Console.ReadLine()!);
-                    Console.WriteLine("Nuevo nombre: ");
-                    servicioEps.ActualizarEps(idA, Console.ReadLine()!);
-                    Console.WriteLine("Ingrese una tecla");
+                    Console.Clear();
+                    Console.Write("ID de la EPS a actualizar: ");
+                    if (int.TryParse(Console.ReadLine(), out int idActualizar))
+                    {
+                        Console.Write("Nuevo nombre: ");
+                        string nuevoNombre = Console.ReadLine();
+
+                        if (string.IsNullOrWhiteSpace(nuevoNombre))
+                        {
+                            Console.WriteLine("❌ El nombre no puede estar vacío.");
+                        }
+                        else
+                        {
+                            servicioEps.ActualizarEps(idActualizar, nuevoNombre);
+                            Console.WriteLine("✅ EPS actualizada exitosamente.");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("❌ ID inválido.");
+                    }
+
+                    Console.WriteLine("Presione cualquier tecla para continuar...");
+                    Console.ReadKey();
                     break;
+
                 case '4':
-                    Console.Write("ID a eliminar: ");
-                    int idE = int.Parse(Console.ReadLine()!);
-                    servicioEps.EliminarEps(idE);
-                    Console.WriteLine("Ingrese una tecla");
+                    Console.Clear();
+                    Console.Write("ID de la EPS a eliminar: ");
+                    if (int.TryParse(Console.ReadLine(), out int idEliminar))
+                    {
+                        servicioEps.EliminarEps(idEliminar);
+                        Console.WriteLine("✅ EPS eliminada exitosamente.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("❌ ID inválido.");
+                    }
+
+                    Console.WriteLine("Presione cualquier tecla para continuar...");
+                    Console.ReadKey();
                     break;
+
                 case '0':
-                    UiEmpresas.MenuEmpresas();
-                    break;
+                    UiEmpresas.MenuEmpresas(); // Revisa si aquí quieres redirigir a otro menú diferente
+                    return;
+
                 default:
-                    Console.WriteLine("Tecla no reconocida");
+                    Console.WriteLine("❌ Opción no reconocida. Intente nuevamente.");
+                    Console.ReadKey();
                     break;
             }
         }
     }
 }
+

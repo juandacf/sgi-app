@@ -16,59 +16,111 @@ public class UiPlan
         IDbFactory factory = new PostgresDbFactory(connectionDatabase);
         var servicioPlan = new PlanService(factory.CreatePlanRepository());
 
-        Console.Clear();
-        Console.WriteLine("\n--- MENÚ PLAN ---");
-        Console.WriteLine("\n1. Monstrar todos\t2. Crear nuevo\n3. Actualizar\t\t4. Eliminar\n0. Salir");
-        Console.Write("Opción: ");
         while (true)
         {
-            ConsoleKeyInfo KeyPressed = Console.ReadKey();
-            switch (KeyPressed.KeyChar)
+            Console.Clear();
+            Console.WriteLine("\n--- MENÚ PLAN ---");
+            Console.WriteLine("1. Mostrar todos\t2. Crear nuevo\n3. Actualizar\t\t4. Eliminar\n0. Salir");
+            Console.Write("Opción: ");
+            ConsoleKeyInfo keyPressed = Console.ReadKey();
+            Console.WriteLine();
+
+            switch (keyPressed.KeyChar)
             {
                 case '1':
+                    Console.Clear();
                     servicioPlan.MostrarTodos();
-                    Console.WriteLine("Ingrese una tecla");
+                    Console.WriteLine("\nPresione una tecla para continuar...");
                     Console.ReadKey();
-                    MenuPlan();
                     break;
+
                 case '2':
+                    Console.Clear();
                     Plan plan = new Plan();
-                    Console.Write("\nNombre plan: ");
+                    Console.Write("\nNombre del plan: ");
                     plan.Nombre = Console.ReadLine();
                     plan.FechaInicio = DateTime.Now;
-                    Console.Write($"\nLa fecha inicia el dia de hoy {plan.FechaInicio}");
-                    Console.Write("\nIngrese la cantidad de dias hasta que el plan se acabe: ");
-                    int diasParaSumar = int.Parse(Console.ReadLine()); // Puedes cambiar este valor por la cantidad de días que desees
+                    Console.WriteLine($"\nLa fecha de inicio es el día de hoy: {plan.FechaInicio}");
+
+                    int diasParaSumar;
+                    while (true)
+                    {
+                        Console.Write("\nIngrese la cantidad de días hasta que el plan se acabe: ");
+                        if (int.TryParse(Console.ReadLine(), out diasParaSumar) && diasParaSumar > 0)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("❌ Por favor, ingrese un número válido mayor que 0.");
+                        }
+                    }
+
                     DateTime fechaFutura = plan.FechaInicio.AddDays(diasParaSumar);
-                    Console.Write("Ingrese el valor del descuento del 1 al 100%: ");
-                    plan.Dcto = double.Parse(Console.ReadLine());
+                    Console.WriteLine($"Fecha de finalización: {fechaFutura}");
+
+                    double descuento;
+                    while (true)
+                    {
+                        Console.Write("\nIngrese el valor del descuento (de 1 a 100): ");
+                        if (double.TryParse(Console.ReadLine(), out descuento) && descuento >= 1 && descuento <= 100)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("❌ Descuento inválido. Debe estar entre 1 y 100.");
+                        }
+                    }
+
+                    plan.Dcto = descuento;
                     servicioPlan.CrearPlan(plan);
-                    Console.WriteLine("Ingrese una tecla");
+                    Console.WriteLine("✅ El plan ha sido creado con éxito.");
+                    Console.WriteLine("\nPresione una tecla para continuar...");
                     Console.ReadKey();
-                    MenuPlan();
                     break;
+
                 case '3':
-                    Console.WriteLine("Id a actualizar: ");
-                    int idA = int.Parse(Console.ReadLine()!);
-                    Console.WriteLine("Nuevo nombre: ");
-                    servicioPlan.ActualizarPlan(idA, Console.ReadLine()!);
-                    Console.WriteLine("Ingrese una tecla");
+                    Console.Clear();
+                    Console.Write("ID del plan a actualizar: ");
+                    if (int.TryParse(Console.ReadLine(), out int idActualizar))
+                    {
+                        Console.Write("Nuevo nombre del plan: ");
+                        string nuevoNombre = Console.ReadLine();
+                        servicioPlan.ActualizarPlan(idActualizar, nuevoNombre);
+                        Console.WriteLine("✅ El plan ha sido actualizado con éxito.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("❌ ID inválido.");
+                    }
+                    Console.WriteLine("\nPresione una tecla para continuar...");
                     Console.ReadKey();
-                    MenuPlan();
                     break;
+
                 case '4':
-                    Console.Write("ID a eliminar: ");
-                    int idE = int.Parse(Console.ReadLine()!);
-                    servicioPlan.EliminarPlan(idE);
-                    Console.WriteLine("Ingrese una tecla");
+                    Console.Clear();
+                    Console.Write("ID del plan a eliminar: ");
+                    if (int.TryParse(Console.ReadLine(), out int idEliminar))
+                    {
+                        servicioPlan.EliminarPlan(idEliminar);
+                        Console.WriteLine("✅ El plan ha sido eliminado con éxito.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("❌ ID inválido.");
+                    }
+                    Console.WriteLine("\nPresione una tecla para continuar...");
                     Console.ReadKey();
-                    MenuPlan();
                     break;
+
                 case '0':
                     UiProductos.MenuProductos();
-                    break;
+                    return;
+
                 default:
-                    Console.WriteLine("Tecla no reconocida");
+                    Console.WriteLine("❌ Opción no válida. Intente nuevamente.");
+                    Console.ReadKey();
                     break;
             }
         }

@@ -22,10 +22,9 @@ namespace sgi_app.infrastructure.repositories
         public void Actualizar(Cliente entity)
         {
             var connection = _conexion.ObtenerConexion();
-            string query = "update cliente set id_tercero= @id_tercero where id=@id";
+            string query = "update cliente set id_tercero= @id_tercero where id_tercero=@id_tercero";
             using var cmd = new NpgsqlCommand(query, connection);
             cmd.Parameters.AddWithValue("@id_tercero", entity.Id);
-            cmd.Parameters.AddWithValue("@id", entity.Id_cliente);
             cmd.ExecuteNonQuery();
         }
 
@@ -34,20 +33,26 @@ namespace sgi_app.infrastructure.repositories
             var connection = _conexion.ObtenerConexion();
             string query = "insert into cliente(id_tercero, fecha_nacimiento, fecha_ultima_compra) values (@id_tercero, @fecha_nacimiento, @fecha_ultima_compra);";
             using var cmd = new NpgsqlCommand(query, connection);
-            cmd.Parameters.AddWithValue("@id_tercero", entity.IdTercero);
+            cmd.Parameters.AddWithValue("@id_tercero", entity.Id);
             cmd.Parameters.AddWithValue("@fecha_nacimiento", entity.FechaNacimiento);
-            cmd.Parameters.AddWithValue("@FechaUltimaCompra", entity.FechaUltimaCompra);
+            cmd.Parameters.AddWithValue("@fecha_ultima_compra", entity.FechaUltimaCompra);
             cmd.ExecuteNonQuery();
         }
 
-        public void Eliminar(int idCliente)
+        public void Eliminar(string id_cliente)
         {
+            
             var connection = _conexion.ObtenerConexion();
-            string query = "delete from cliente where id=@id";;
+            string query = "delete from cliente where id_tercero=@id";;
             using var cmd = new NpgsqlCommand(query, connection);
-            cmd.Parameters.AddWithValue("@id", idCliente);
+            cmd.Parameters.AddWithValue("@id", id_cliente);
             cmd.ExecuteNonQuery();
         }
+        public void Eliminar(int idCliente)
+        {
+            throw new NotImplementedException();
+        }
+
 
         public List<Cliente> ObtenerTodos()
         {

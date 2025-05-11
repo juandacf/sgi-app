@@ -13,56 +13,110 @@ public class UiEmpresa
     public static void MenuEmpresa()
     {
         IDbFactory factory = new PostgresDbFactory(DbParameters.Parameters);
-        var ServicioEmpresa = new EmpresaService(factory.CreateEmpresaRepository());
-        var ServicioCiudad = new CiudadService(factory.CreateCiudadRepository());
-        Console.Clear();
-        Console.WriteLine("\n--- MENÚ EMPRESA ---");
-        Console.WriteLine("\n1. Monstrar todas\t2. Crear nueva\n3. Actualizar\t\t4. Eliminar\n0. Salir");
-        Console.Write("Opción: ");
+        var servicioEmpresa = new EmpresaService(factory.CreateEmpresaRepository());
+        var servicioCiudad = new CiudadService(factory.CreateCiudadRepository());
+
         while (true)
         {
-            ConsoleKeyInfo KeyPressed = Console.ReadKey();
-            switch (KeyPressed.KeyChar)
+            Console.Clear();
+            Console.WriteLine("\n--- MENÚ EMPRESA ---");
+            Console.WriteLine("\n1. Mostrar todas\t2. Crear nueva\n3. Actualizar\t\t4. Eliminar\n0. Salir");
+            Console.Write("Opción: ");
+            ConsoleKeyInfo keyPressed = Console.ReadKey();
+            Console.WriteLine();
+
+            switch (keyPressed.KeyChar)
             {
                 case '1':
                     Console.Clear();
-                    ServicioEmpresa.ObtenerEmpresa();
+                    servicioEmpresa.ObtenerEmpresa();
+                    Console.WriteLine("Presione cualquier tecla para continuar...");
+                    Console.ReadKey(true);
                     break;
+
                 case '2':
                     Console.Clear();
-                    Console.WriteLine("Por favor, ingrese el nombre de la empresa:");
-                    string NombreEmpresa =Console.ReadLine();
-                    ServicioCiudad.ObtenerCiudad();
-                    Console.WriteLine("Por favor, ingrese el id de la ciudad: ");
-                    int IdCiudad = int.Parse(Console.ReadLine());
-                    Empresa empresa = new Empresa(0, NombreEmpresa, IdCiudad,DateTime.Now );
-                    ServicioEmpresa.CrearEmpresa(empresa);
-                    Console.WriteLine("La empresa ha sido añadida con éxito.");
+                    Console.Write("Ingrese el nombre de la empresa: ");
+                    string nombreEmpresa = Console.ReadLine();
+
+                    if (string.IsNullOrWhiteSpace(nombreEmpresa))
+                    {
+                        Console.WriteLine("❌ El nombre de la empresa no puede estar vacío.");
+                    }
+                    else
+                    {
+                        servicioCiudad.ObtenerCiudad();
+                        Console.Write("Ingrese el ID de la ciudad: ");
+                        if (int.TryParse(Console.ReadLine(), out int idCiudad))
+                        {
+                            Empresa nuevaEmpresa = new Empresa(0, nombreEmpresa, idCiudad, DateTime.Now);
+                            servicioEmpresa.CrearEmpresa(nuevaEmpresa);
+                            Console.WriteLine("✅ La empresa ha sido añadida con éxito.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("❌ ID de ciudad inválido.");
+                        }
+                    }
+
+                    Console.WriteLine("Presione cualquier tecla para continuar...");
+                    Console.ReadKey(true);
                     break;
+
                 case '3':
                     Console.Clear();
-                    ServicioEmpresa.ObtenerEmpresa();
-                    Console.WriteLine("Por favor, ingresa el id de la empresa que quieres actualizar: ");
-                    int IdEmpresaActualizar = int.Parse(Console.ReadLine());
-                    Console.WriteLine("Por favor, ingresa el nuevo nombre de la empresa: ");
-                    string NuevoNombre = Console.ReadLine();
-                    Empresa empresanueva = new Empresa(IdEmpresaActualizar, NuevoNombre,1, DateTime.Now);
-                    ServicioEmpresa.EditarEmpresa(empresanueva);
-                    Console.WriteLine("La actualización de la empresa fue exitosa: ");
+                    servicioEmpresa.ObtenerEmpresa();
+                    Console.Write("Ingrese el ID de la empresa que desea actualizar: ");
+                    if (int.TryParse(Console.ReadLine(), out int idActualizar))
+                    {
+                        Console.Write("Ingrese el nuevo nombre de la empresa: ");
+                        string nuevoNombre = Console.ReadLine();
+
+                        if (string.IsNullOrWhiteSpace(nuevoNombre))
+                        {
+                            Console.WriteLine("❌ El nombre no puede estar vacío.");
+                        }
+                        else
+                        {
+                            Empresa empresaActualizada = new Empresa(idActualizar, nuevoNombre, 1, DateTime.Now);
+                            servicioEmpresa.EditarEmpresa(empresaActualizada);
+                            Console.WriteLine("✅ La empresa fue actualizada con éxito.");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("❌ ID inválido.");
+                    }
+
+                    Console.WriteLine("Presione cualquier tecla para continuar...");
+                    Console.ReadKey(true);
                     break;
+
                 case '4':
                     Console.Clear();
-                    ServicioEmpresa.ObtenerEmpresa();
-                    Console.WriteLine("Por favor ingrese el id de la empresa que quiere borrar:");
-                    int EmpresaBorrarID = int.Parse(Console.ReadLine());
-                    ServicioEmpresa.EliminarEmpresa(EmpresaBorrarID);
-                    Console.WriteLine("La empresa fue eliminada con éxito. Por favor, presione 0 para continuar: ");
+                    servicioEmpresa.ObtenerEmpresa();
+                    Console.Write("Ingrese el ID de la empresa que desea eliminar: ");
+                    if (int.TryParse(Console.ReadLine(), out int idEliminar))
+                    {
+                        servicioEmpresa.EliminarEmpresa(idEliminar);
+                        Console.WriteLine("✅ Empresa eliminada con éxito.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("❌ ID inválido.");
+                    }
+
+                    Console.WriteLine("Presione cualquier tecla para continuar...");
+                    Console.ReadKey(true);
                     break;
+
                 case '0':
                     UiEmpresas.MenuEmpresas();
-                    break;
+                    return;
+
                 default:
-                    Console.WriteLine("Tecla no reconocida");
+                    Console.WriteLine("❌ Opción no válida. Intente nuevamente.");
+                    Console.ReadKey(true);
                     break;
             }
         }
